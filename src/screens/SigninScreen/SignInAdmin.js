@@ -18,8 +18,8 @@ const SignInAdminScreen = () => {
     const onForgotPasswordPressed = () => {
         console.warn('Olvidaste la contraseña');   
        }
-    const onRegisterPressed = () => {
-        navigatioon.navigate("Registrarse");
+    const   onClientPressed = () => {
+        navigatioon.navigate("ClientTable");
     }
 return (
     <View style = {styles.root}>
@@ -50,7 +50,7 @@ return (
            />
            <CustomButton 
           text="No eres administrador?, inicia aquí."
-           onPress={onRegisterPressed}
+           onPress={onClientPressed}
            type ="TERTIARY"
            />
     </View>

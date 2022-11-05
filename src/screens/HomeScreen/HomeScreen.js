@@ -11,7 +11,7 @@ const onAdminPressed = () => {
     navigatioon.navigate("Iniciar Sesión Admin");
 }
 const onClientPressed = () => {
-    navigatioon.navigate("Iniciar Sesión");
+    navigatioon.navigate("ClientTable");
 }
    
  const {height} = useWindowDimensions();

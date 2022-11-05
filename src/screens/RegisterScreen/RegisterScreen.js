@@ -11,7 +11,7 @@ const RegisterScreen = () => {
     const {email, setEmail} = useState('');
     const {password,setPassword} = useState('');
     const {height} = useWindowDimensions();
-    const navigatioon = useNavigation();
+    const navigatioon = useNavigation('');
     const onRegisterPressed = () => {
      console.warn('Registrarse');   
     }
