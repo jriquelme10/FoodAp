@@ -15,7 +15,7 @@ import pizzaCarne from '../../../Comidas/pizza-carne.png';
 import pizzaQueso from '../../../Comidas/pizza-queso.png';
 import sushi1 from '../../../Comidas/sushi-salmon.png';
 import sushi2 from '../../../Comidas/sushi2.png';
-import sushi3 from '../../../Comidas/cocacola.png';
+import sushi3 from '../../../Comidas/sushi3.png';
 import papasFritas from '../../../Comidas/papasfritas.png';
 import arosCebolla from '../../../Comidas/arosCebolla.png';
 import burger1 from '../../../Comidas/Hamburguesa-tocino-carne.png';
@@ -85,9 +85,11 @@ const MenuScreen = () => {
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
          <View style={{marginLeft:20}}>
          <Image style={styles.productImage} source={pizzaCarne}/>
+         <Text style={styles.Text}>Pizza de carne</Text>
          </View>
          <View style={{marginLeft:20}}>
          <Image style={styles.productImage} source={pizzaQueso}/>
+         <Text style={styles.Text}>Pizza de queso</Text>
          </View>
     </ScrollView>
 
@@ -95,12 +97,15 @@ const MenuScreen = () => {
    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
    <View style={{marginLeft:20}}>
    <Image style={styles.productImage} source={sushi1}/>
+   <Text style={styles.Text}>Sushi de salmon</Text>
    </View>
    <View style={{marginLeft:20}}>
    <Image style={styles.productImage} source={sushi2}/>
+   <Text style={styles.Text}>Tabla de sushi</Text>
    </View>
    <View style={{marginLeft:20}}>
    <Image style={styles.productImage} source={sushi3}/>
+   <Text style={styles.Text}>Sushi de nose</Text>
    </View>
    </ScrollView>
 
@@ -108,12 +113,15 @@ const MenuScreen = () => {
    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
      <View style={{marginLeft:20}}>
      <Image style={styles.productImage} source={burger1}/>
+     <Text style={styles.Text}>Hamburguesa carne tocino</Text>
      </View>
      <View style={{marginLeft:20}}>
      <Image style={styles.productImage} source={burger2}/>
+     <Text style={styles.Text}>Hamburguesa pepinillos</Text>
      </View>
      <View style={{marginLeft:20}}>
      <Image style={styles.productImage} source={burger3}/>
+     <Text style={styles.Text}>Hamburguesa doble</Text>
      </View>
    </ScrollView>
    
@@ -121,12 +129,15 @@ const MenuScreen = () => {
    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
      <View style={{marginLeft:20}}>
      <Image style={styles.productImage} source={ensalada1}/>
+     <Text style={styles.Text}>Ensalada de nose</Text>
      </View>
      <View style={{marginLeft:20}}>
      <Image style={styles.productImage} source={ensalada2}/>
+     <Text style={styles.Text}>Ensalada de nose</Text>
      </View>
      <View style={{marginLeft:20}}>
      <Image style={styles.productImage} source={ensalada3}/>
+     <Text style={styles.Text}>Ensalada de nose</Text>
      </View>
    </ScrollView>
 
@@ -134,9 +145,11 @@ const MenuScreen = () => {
    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
      <View style={{marginLeft:20}}>
      <Image style={styles.productImage} source={papasFritas}/>
+     <Text style={styles.Text}>Papas fritas grandes</Text>
      </View>
      <View style={{marginLeft:20}}>
      <Image style={styles.productImage} source={arosCebolla}/>
+     <Text style={styles.Text}>Aros de cebolla(6 aros)</Text>
      </View>
    </ScrollView>
 
@@ -144,9 +157,11 @@ const MenuScreen = () => {
    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
      <View style={{marginLeft:20}}>
      <Image style={styles.productImage} source={cocacola}/>
+     <Text style={styles.Text}>Coca cola</Text>
      </View>
      <View style={{marginLeft:20}}>
      <Image style={styles.productImage} source={aguamineralGas}/>
+     <Text style={styles.Text}>Agua mineral sin gas</Text>
      </View>
    </ScrollView>
 
@@ -214,7 +229,14 @@ const styles = StyleSheet.create({
         marginLeft: "7%",
         alignItems: "center",
         backgroundColor: "white",
-    }
+    },
+    Text:{
+      fontSize:15,
+      fontWeight:'bold',
+      textAlign:'center'
+      
+
+    },
 
 });
 
