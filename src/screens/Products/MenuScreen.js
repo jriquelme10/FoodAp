@@ -1,4 +1,4 @@
-import { View, Text,StyleSheet, ImageBackground,Image } from 'react-native'
+import { View, Text,StyleSheet, ImageBackground,Image,Pressable} from 'react-native'
 import React,{useState} from 'react'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import CustomInput from '../../components/CustomInput/CustomInput'
@@ -83,6 +83,9 @@ const MenuScreen = () => {
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
          <View style={{marginLeft:20}}>
          <Image style={styles.productImage} source={pizzaCarne}/>
+         <Pressable>
+            
+         </Pressable>
          </View>
          <View style={{marginLeft:20}}>
          <Image style={styles.productImage} source={pizzaQueso}/>
