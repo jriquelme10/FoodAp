@@ -4,6 +4,7 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import CustomInput from '../../components/CustomInput/CustomInput'
 import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import { useNavigation } from '@react-navigation/native';
 
 import burgerCategory from '../../../Categorias/burger-categorie.jpeg';
 import saladCategory from '../../../Categorias/ensalada-categorie.jpeg';
@@ -30,6 +31,7 @@ import aguamineralGas from '../../../Comidas/aguamineralGAS.png';
 
 
 const MenuScreen = () => {
+   const navigatioon = useNavigation()
     const {product,setProduct} = useState('');
   return (
     <ScrollView style={styles.container}>
@@ -83,9 +85,6 @@ const MenuScreen = () => {
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
          <View style={{marginLeft:20}}>
          <Image style={styles.productImage} source={pizzaCarne}/>
-         <Pressable>
-            
-         </Pressable>
          </View>
          <View style={{marginLeft:20}}>
          <Image style={styles.productImage} source={pizzaQueso}/>
