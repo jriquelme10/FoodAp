@@ -8,7 +8,7 @@ import RegisterScreen from "./src/screens/RegisterScreen/RegisterScreen";
 import Navigation from "./src/navigation/Navigation";
 import axios from "axios";
 
-const URL = "http://localhost/testBackEnd/public/platos";
+const URL = "http://192.168.1.189/testBackEnd/public/plato";
 
 import Card from "./src/components/Card";
 import { FlatList } from "react-native-gesture-handler";
