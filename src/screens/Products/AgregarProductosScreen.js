@@ -3,6 +3,8 @@ import {
   View,
   Text,
   Image,
+  TextInput,
+  Button,
   StyleSheet,
   useWindowDimensions,
 } from "react-native";
@@ -14,6 +16,9 @@ import { useNavigation } from "@react-navigation/native";
 
 const SignInScreen = () => {
   const { nombre, setNombre } = useState("");
+  const onChangeHandler = (nombreValue) => {
+    setNombre(nombreValue);
+  };
   const { categoria, setCategoria } = useState("");
   const { descripcion, setDescripcion } = useState("");
   const { precio, setPrecio } = useState("");
@@ -38,7 +43,7 @@ const SignInScreen = () => {
       <CustomInput
         placeholder="nombre"
         value={nombre}
-        setValue={setNombre}
+        setValue={setDescripcion}
       />
       <CustomInput
         placeholder="categoria"
@@ -52,38 +57,61 @@ const SignInScreen = () => {
       />
       <CustomInput placeholder="precio" value={precio} setValue={setPrecio} />
 
-      <CustomButton text="Agregar" onPress={saveProduct(nombre, categoria, descripcion)} />
+      <Button title = "agregar"  onPress={() => console.log(nombre)} />
     </View>
   );
 };
 
-const saveProduct = (nombre, categoria, descripcion) => {
+function saveProduct (nombreP,categoriaP,descripcionP) {
   fetch("http://192.168.1.189:8000/api/plato", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+        'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      "nombre": "nombre",
-      "categoria": "categoria",
-      "descripcion": "descripcion",
-      "precio": 1000,
-    }),
-  })
-    .then((res) => {
-      console.log(res.status);
-      console.log(res.headers);
-      return res.json();
+      nombre: nombreP,
+      categoria: categoriaP,
+      descripcion: descripcionP,
+      precio: 1000
     })
-    .then(
-      (result) => {
-        console.log(result);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+})
+.then(res => res.json())
+.then(data => {
+  console.log("exito");
+})
+.catch(err => {
+    console.log("Error occurred: " + err);
+
+})
+
 }
+// const saveProduct = (nombre, categoria, descripcion) => {
+//   fetch("http://192.168.1.189:8000/api/plato", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       nombre: "nombre",
+//       categoria: "categoria",
+//       descripcion: "descripcion",
+//       precio: 1000
+//     }),
+//   })
+//     .then((res) => {
+//       console.log(res.status);
+//       console.log(res.headers);
+//       return res.json();
+//     })
+//     .then(
+//       (result) => {
+//         console.log(result);
+//       },
+//       (error) => {
+//         console.log(error);
+//       }
+//     );
+// }
 
 const styles = StyleSheet.create({
   root: {
