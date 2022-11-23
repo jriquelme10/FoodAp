@@ -6,7 +6,7 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import SignInScreen from "./src/screens/SigninScreen/SignInScreen";
 import RegisterScreen from "./src/screens/RegisterScreen/RegisterScreen";
 import Navigation from "./src/navigation/Navigation";
-import axios from "axios";
+
 
 const URL = "http://localhost/testBackEnd/public/platos";
 
