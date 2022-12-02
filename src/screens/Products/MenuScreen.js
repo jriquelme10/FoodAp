@@ -1,5 +1,5 @@
 import { View, Text,StyleSheet, ImageBackground,Image,Pressable} from 'react-native'
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import CustomInput from '../../components/CustomInput/CustomInput'
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -26,18 +26,43 @@ import ensalada2 from '../../../Comidas/ensalada2.png';
 import ensalada3 from '../../../Comidas/ensalada3.png';
 import cocacola from '../../../Comidas/cocacola.png';
 import aguamineralGas from '../../../Comidas/aguamineralGAS.png';
+const endpoint1 = "http://127.0.0.1:8000/api/";
 
 
+import axios from 'axios';
 
 
 const MenuScreen = () => {
-   const navigatioon = useNavigation()
+
+   const navigatioon = useNavigation();
     const {product,setProduct} = useState('');
+    const {products,setProducts} = useState([]);
+    const {category,setCategory} = useState([]);
+
+    useEffect(() => {
+      (async function () {
+        try {
+         //productos
+          const response = await fetch(endpoint1 + 'products', {
+            method: "GET",
+          });
+          const data = await response.json();
+          setProducts(data);
+         //categorias
+          const response2 = await fetch(endpoint1 + 'category', {
+            method: "GET",
+          });
+          const data2 = await response2.json();
+          setCategory(data2);
+        } catch (error) {
+          console.log("Error en la carga de los productos o categorias!");
+        }
+      })();
+    }, []);
+
   return (
     <ScrollView style={styles.container}>
-     <View style= {styles.topIcon}>
-     <Entypo name= "menu" size={30} color="grey" />
-      </View>
+     
       
      <View style={styles.styleBox}>
      <EvilIcons name="search" size={45} color="grey" />
@@ -49,8 +74,13 @@ const MenuScreen = () => {
     </View>
     <Text style={styles.title}>Categorias </Text>
 
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+
+    </ScrollView>
+
      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-     <ImageBackground 
+      
+            <ImageBackground 
         imageStyle={{borderRadius:12.0}} 
         style={styles.categoryImage}
         source={burgerCategory}
@@ -78,6 +108,9 @@ const MenuScreen = () => {
         >
         <Text style={styles.imageTitle}>Ensaladas</Text>
      </ImageBackground>
+      
+   
+    
         
     </ScrollView>
 
