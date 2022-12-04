@@ -19,7 +19,6 @@ const Navigation = () => {
       <Stack.Navigator screenOptions={{headerShown:true}}>
       <Stack.Screen name="Home" component={HomeScreen}/>
       <Stack.Screen name='admin' component={AdminScreen}/>
-        <Stack.Screen name="Iniciar Sesión Admin" component={SignInAdminScreen}/>
         <Stack.Screen name="LogInAdmin" component={LogInScreen}/>
         <Stack.Screen name='ClientTable' component={ClientScreen}/>
         <Stack.Screen name="MenuOptions" component={MenuScreen}/>

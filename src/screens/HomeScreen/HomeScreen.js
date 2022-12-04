@@ -14,7 +14,7 @@ const HomeScreen = () => {
   const navigatioon = useNavigation();
 
   const onAdminPressed = () => {
-    navigatioon.navigate("Iniciar Sesión Admin");
+    navigatioon.navigate("admin");
   };
   const onClientPressed = () => {
     navigatioon.navigate("ClientTable");

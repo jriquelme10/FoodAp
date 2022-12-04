@@ -3,12 +3,50 @@ import React,{useState}from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 
-const IngresarProductoScreen = () => {
-    const {codigo,setCodigo} = useState('');
-    const {nombre,setNombre} = useState('');
-    const {precio,setPrecio} = useState('');
-    const {descripcion,setDescripcion} = useState('');
-    const {categoria,setCategoria} = useState('');
+const URL = "http://127.0.0.1:8000/api/";
+
+const IngresarProductoScreen = (props) => {
+    const [product,setProduct] = useState("");
+    const [category,setCategory] = useState("");
+    const [IDcategory,setIDCategory] = useState("");
+    const [id,setId] = useState("");
+    const [name,setName] = useState("");
+    const [code,setCode] = useState("");
+    const [price,setPrice] = useState("");
+    const [description,setDescription] = useState("");
+    const [stock,setStock] = useState("");
+
+    const {modalVisible} = props;
+    const {setModalVisible} = props;
+    const {category:categoryobj} = props;
+
+    const {products} = props;
+    const {setProducts} = props;
+    const {product: productOBJ} = props;
+    const {setProduct:setProductOBJ} = props;
+
+    useEffect(() => {
+      (async function() {
+        try {
+          const response = await fetch(URL + "category",{
+            method:"GET",
+          });
+          const data = await response.json();
+          setCategory(data);
+        } catch (error) {
+          console.log("Error en la carga de categorias.")
+          
+        }
+      });
+    }, [])
+    
+    
+
+
+
+
+
+
   return (
   
       <View>

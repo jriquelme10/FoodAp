@@ -9,7 +9,14 @@ const AdminScreen = () => {
   const onIngresarProducto = ()=>{
     navigatioon.navigate('IngresarProducto');
   }
+  const onEliminarProducto = ()=>{
+    navigatioon.navigate('IngresarProducto');
+  }
   const onIngresarCategoria = ()=>{
+    navigatioon.navigate('IngresarCategoria');
+  }
+
+  const onEliminarCategoria = ()=>{
     navigatioon.navigate('IngresarCategoria');
   }
    
@@ -23,6 +30,14 @@ const AdminScreen = () => {
 
       <View style={styles.btn}>
       <CustomButton text={'Ingresar categoria'} onPress={onIngresarCategoria}/>
+      </View>
+
+      <View style={styles.btn}>
+      <CustomButton text={'Eliminar producto'} onPress={onEliminarProducto} />
+      </View>
+
+      <View style={styles.btn}>
+      <CustomButton text={'Eliminar categoría'} onPress={onEliminarCategoria} />
       </View>
     
     </View>

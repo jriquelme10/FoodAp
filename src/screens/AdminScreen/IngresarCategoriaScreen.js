@@ -7,6 +7,8 @@ const endpoint = "https://200.120.46.200:8000/api/";
 
 const IngresarCategoriaScreen = () =>{
 const {product,setProduct} = useState([]);
+const {nombre,setNombre} = useState([]);
+
   
 
 useEffect(() => {
@@ -27,8 +29,6 @@ useEffect(() => {
 
 
 
-
-  
    
   return (
   
