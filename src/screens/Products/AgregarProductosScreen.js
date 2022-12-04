@@ -12,27 +12,68 @@ import Logo from "../../../assets/images/logo.png";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import { set } from "react-hook-form";
 
-
-const SignInScreen = () => {
-  const { nombre, setNombre } = useState("");
+const SignInScreen = (props) => {
+  const [nombre, setNombre] = useState("");
   const onChangeHandler = (nombreValue) => {
     setNombre(nombreValue);
   };
-  const { categoria, setCategoria } = useState("");
-  const { descripcion, setDescripcion } = useState("");
-  const { precio, setPrecio } = useState("");
+  const [categoria, setCategoria] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [precio, setPrecio] = useState("");
   const { height } = useWindowDimensions();
   const navigatioon = useNavigation();
-  const onSignInPressed = () => {
-    console.warn("Iniciar Sesion");
+
+  const URL = "http://192.168.1.189:8000/api/plato";
+
+  // const saveProduct = () => {
+  //   console.log(nombre, categoria, descripcion, precio);
+  //   fetch("http://192.168.1.189:8000/api/plato", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       accept: "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       nombre: nombre,
+  //       categoria: categoria,
+  //       descripcion: descripcion,
+  //       precio: precio,
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log("exito");
+  //     })
+  //     .catch((err) => {
+  //       console.log("Error occurred: " + err);
+  //     });
+  // };
+  const saveProduct = async () => {
+    await fetch("http://192.168.1.189:8000/api/plato", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nombre: nombre,
+        categoria: categoria,
+        precio: precio,
+        descripcion: descripcion,
+      }),
+    });
   };
-  const onForgotPasswordPressed = () => {
-    console.warn("Olvidaste la contraseña");
-  };
-  const onRegisterPressed = () => {
-    navigatioon.navigate("Registrarse");
-  };
+
+  // const saveProduct = async () => {
+  //   console.log(nombre, categoria, descripcion, precio);
+  //   const obj = { nombre, categoria, descripcion, precio };
+  //   const { data } = await axios.post(URL, obj);
+  //   console.log(data);
+  // };
+
   return (
     <View style={styles.root}>
       <Image
@@ -40,51 +81,24 @@ const SignInScreen = () => {
         style={[styles.logo, { height: height * 0.3 }]}
         resizeMode="contain"
       />
-      <CustomInput
-        placeholder="nombre"
-        value={nombre}
-        setValue={setDescripcion}
-      />
-      <CustomInput
+      <TextInput placeholder="nombre" value={nombre} onChangeText={setNombre} />
+      <TextInput
         placeholder="categoria"
         value={categoria}
-        setValue={setCategoria}
+        onChangeText={setCategoria}
       />
-      <CustomInput
+      <TextInput
         placeholder="descripcion"
         value={descripcion}
-        setValue={setDescripcion}
+        onChangeText={setDescripcion}
       />
-      <CustomInput placeholder="precio" value={precio} setValue={setPrecio} />
+      <TextInput placeholder="precio" value={precio} onChangeText={setPrecio} />
 
-      <Button title = "agregar"  onPress={() => console.log(nombre)} />
+      <Button title="agregar" onPress={saveProduct} />
     </View>
   );
 };
 
-function saveProduct (nombreP,categoriaP,descripcionP) {
-  fetch("http://192.168.1.189:8000/api/plato", {
-    method: "POST",
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      nombre: nombreP,
-      categoria: categoriaP,
-      descripcion: descripcionP,
-      precio: 1000
-    })
-})
-.then(res => res.json())
-.then(data => {
-  console.log("exito");
-})
-.catch(err => {
-    console.log("Error occurred: " + err);
-
-})
-
-}
 // const saveProduct = (nombre, categoria, descripcion) => {
 //   fetch("http://192.168.1.189:8000/api/plato", {
 //     method: "POST",
