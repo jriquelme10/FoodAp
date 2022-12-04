@@ -8,7 +8,8 @@ import HomeScreen from "../screens/HomeScreen/HomeScreen";
 import SignInAdminScreen from "../screens/SigninScreen/SignInAdmin";
 import LogInScreen from "../screens/LogInScreen/LogInScreen";
 import ClientScreen from "../screens/ClientScreen/ClientScreen";
-import MenuScreen from "../screens/Products/MenuScreen";
+//import MenuScreen from "../screens/Products/MenuScreen";
+import MenuScreen from "../screens/Products/MenuScreen2";
 import AgregarProductos from "../screens/Products/AgregarProductosScreen";
 
 const Stack = createNativeStackNavigator();
