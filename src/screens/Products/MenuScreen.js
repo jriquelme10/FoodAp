@@ -26,13 +26,25 @@ import ensalada2 from '../../../Comidas/ensalada2.png';
 import ensalada3 from '../../../Comidas/ensalada3.png';
 import cocacola from '../../../Comidas/cocacola.png';
 import aguamineralGas from '../../../Comidas/aguamineralGAS.png';
-
-
+const URL = "http://192.168.0.5:8000/api/platos";
 
 
 const MenuScreen = () => {
    const navigatioon = useNavigation()
-    const {product,setProduct} = useState('');
+   const {product,setProduct} = useState('');
+   const [listaCategorias,setListCategorias] = useState([]);
+   const [listaProductos, setListaProducto] = useState([]);
+
+  useEffect(() => {
+    getProductos();
+  }, []);
+
+  const getProductos = async () => {
+    const { data } = await axios.get(URL);
+    const { productos } = data;
+    setListaProducto(productos);
+  };
+
   return (
     <ScrollView style={styles.container}>
      <View style= {styles.topIcon}>
