@@ -81,7 +81,7 @@ const AddProductsScreen = (props) => {
       return;
     }
     try {
-      await fetch("http://192.168.1.189:8000/api/plato", {
+      await fetch("http://192.168.0.5:8000/api/plato", {
         method: "POST",
         headers: {
           Accept: "application/json",

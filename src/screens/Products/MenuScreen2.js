@@ -24,7 +24,8 @@ export const EjemContext = React.createContext();
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const URL = "http://192.168.1.189/testBackEnd/public/platos";
+const URL = "http://192.168.0.5:8000/api/platos";
+
 
 export default function MenuScreen2() {
   const image = {
