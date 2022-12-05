@@ -1,15 +1,15 @@
 import {
-    View,
-    Text,
-    Image,
-    TextInput,
-    Button,
-    StyleSheet,
-    Alert,
-    useWindowDimensions
-  } from "react-native";
-import React,{useState}from 'react'
-import Logo from '../../../../assets/images/logo.png';
+  View,
+  Text,
+  Image,
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert,
+  useWindowDimensions,
+} from "react-native";
+import React, { useState } from "react";
+import Logo from "../../../../assets/images/logo.png";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 
 import { useNavigation } from "@react-navigation/native";
@@ -24,7 +24,7 @@ const AddCategoryScreen = (propd) => {
   };
 
   const saveCategory = async () => {
-   await fetch("http://192.168.0.5:8000/api/categoria", {
+    await fetch("http://192.168.1.189:8000/api/categoria", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -32,30 +32,28 @@ const AddCategoryScreen = (propd) => {
       },
       body: JSON.stringify({
         name: name,
-        
       }),
     });
   };
 
-
   return (
     <View style={styles.root}>
-    <Image
-      source={Logo}
-      style={[styles.logo, { height: height * 0.3 }]}
-      resizeMode="contain"
-    />
-    <Text style={styles.title}> AGREGAR CATEGORIAS</Text>
-    <TextInput 
-    style={styles.input}
-    placeholder="Nombre de la categoría" 
-    value={name}
-     onChangeText={setName} 
-     />
-    
-    <CustomButton text="Agregar" onPress={saveCategory}/>
-  </View>
-  )
+      <Image
+        source={Logo}
+        style={[styles.logo, { height: height * 0.3 }]}
+        resizeMode="contain"
+      />
+      <Text style={styles.title}> AGREGAR CATEGORIAS</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Nombre de la categoría"
+        value={name}
+        onChangeText={setName}
+      />
+
+      <CustomButton text="Agregar" onPress={saveCategory} />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -70,23 +68,22 @@ const styles = StyleSheet.create({
     height: 70,
   },
 
-  input:{ 
-    backgroundColor: 'white',
-    width: '100%',
+  input: {
+    backgroundColor: "white",
+    width: "100%",
     height: 40,
-    borderColor: '#e8e8e8',
+    borderColor: "#e8e8e8",
     borderWidth: 1,
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 10,
-    marginVertical : 8,
-   
-},
-title: {
-  fontSize: 20,
-  marginBottom: 10,
-  fontWeight: "bold",
-},
+    marginVertical: 8,
+  },
+  title: {
+    fontSize: 20,
+    marginBottom: 10,
+    fontWeight: "bold",
+  },
 });
 
 export default AddCategoryScreen;
