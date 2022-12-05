@@ -12,7 +12,7 @@ import axios from "axios";
 import Card from "../../components/Card";
 import { FlatList } from "react-native-gesture-handler";
 
-const URL = "http://192.168.1.189/testBackEnd/public/platos";
+const URL = "http://192.168.1.189:8000/api/platos";
 
 export default function MenuScreen3() {
   const [listaProductos, setListaProducto] = useState([]);
