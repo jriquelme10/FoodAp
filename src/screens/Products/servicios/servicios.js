@@ -1,16 +1,16 @@
 import axios from "axios";
 
-const saveProduct =(nombre,categoria,descripcion) => {
+const saveProduct = (nombre, categoria, descripcion) => {
   fetch("http://192.168.1.189:8000/api/plato", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      "nombre": nombre,
-      "categoria": categoria,
-      "descripcion": descripcion,
-      "precio": 1000,
+      nombre: nombre,
+      categoria: categoria,
+      descripcion: descripcion,
+      precio: 1000,
     }),
   })
     .then((res) => {
@@ -26,6 +26,6 @@ const saveProduct =(nombre,categoria,descripcion) => {
         console.log(error);
       }
     );
-}
+};
 
 export default saveProduct;

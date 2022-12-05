@@ -11,6 +11,8 @@ import ClientScreen from "../screens/ClientScreen/ClientScreen";
 //import MenuScreen from "../screens/Products/MenuScreen";
 import MenuScreen from "../screens/Products/MenuScreen2";
 import AgregarProductos from "../screens/Products/AgregarProductosScreen";
+import AddCategoryScreen from "../screens/Products/servicios/AddCategoryScreen";
+import AddTable from "../screens/Products/servicios/AddTable";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +25,8 @@ const Navigation = () => {
       <Stack.Screen name="ClientTable" component={ClientScreen} />
       <Stack.Screen name="MenuOptions" component={MenuScreen} />
       <Stack.Screen name="AgregarProducto" component={AgregarProductos} />
+      <Stack.Screen name="AgregarCategoria" component={AddCategoryScreen} />
+      <Stack.Screen name="AgregarMesa" component={AddTable} />
     </Stack.Navigator>
   );
 };
