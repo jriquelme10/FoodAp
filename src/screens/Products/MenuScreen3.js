@@ -5,31 +5,25 @@ import {
   ImageBackground,
   Image,
   Pressable,
-  TouchableHighlight
+  TouchableHighlight,
 } from "react-native";
-import React, { useEffect, useState,Component } from "react";
+import React, { useEffect, useState, Component } from "react";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import Card from "../../components/Card";
 import CardCategories from "../../components/CardCategories";
 import { FlatList } from "react-native-gesture-handler";
 
-const URLPRODUCTOS = "http://192.168.0.5:8000/api/platos";
-const URLCATEGORIAS = "http://192.168.0.5:8000/api/categorias";
-
+const URLPRODUCTOS = "http://192.168.1.189:8000/api/platos";
+const URLCATEGORIAS = "http://192.168.1.189:8000/api/categorias";
 
 export default function MenuScreen3() {
   const [listaProductos, setListaProducto] = useState([]);
   const [listaCategorias, setListaCategorias] = useState([]);
-  
 
   useEffect(() => {
     getProductos();
   }, []);
-
-
- 
-
 
   const getProductos = async () => {
     const { data } = await axios.get(URLPRODUCTOS);
@@ -53,13 +47,14 @@ export default function MenuScreen3() {
   );
 
   const renderItemCategories = ({ item }) => (
-    <CardCategories
-      name={item.name}
-    />
+    <CardCategories name={item.name} />
   );
 
   const renderProducts = ({ item }) => (
-    <TouchableHighlight underlayColor="rgba(73,182,77,0.9)" onPress={() => onPressRecipe(item)}>
+    <TouchableHighlight
+      underlayColor="rgba(73,182,77,0.9)"
+      onPress={() => onPressRecipe(item)}
+    >
       <View style={styles.container}>
         <Image style={styles.photo} source={{ uri: item.photo_url }} />
         <Text style={styles.title}>{item.title}</Text>
@@ -69,17 +64,13 @@ export default function MenuScreen3() {
   );
 
   return (
-
     <View>
-
-  
       <FlatList
-      data={listaProductos}
-      renderItem={renderItemProducts}
-      keyExtractor={(item) => item.id.toString()}
-    />
+        data={listaProductos}
+        renderItem={renderItemProducts}
+        keyExtractor={(item) => item.id.toString()}
+      />
     </View>
-    
   );
 
   const styles = StyleSheet.create({
@@ -89,5 +80,4 @@ export default function MenuScreen3() {
       fontWeight: "bold",
     },
   });
-  
 }
