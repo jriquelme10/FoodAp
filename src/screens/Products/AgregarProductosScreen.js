@@ -8,6 +8,10 @@ import {
   StyleSheet,
   Alert,
   useWindowDimensions,
+  Modal,
+  TouchableOpacity,
+  SafeAreaView,
+  FlatList,
 } from "react-native";
 import Logo from "../../../assets/images/logo.png";
 import CustomInput from "../../components/CustomInput/CustomInput";
@@ -15,9 +19,9 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { set } from "react-hook-form";
-import { Picker } from "@react-native-picker/picker";
 import SelectPicker from "react-native-form-select-picker"; // Import the package
-const options = ["Apple", "Banana", "Orange"];
+import equis from "../../../assets/images/equis.png";
+import CardProducto from "../../components/CardProducto";
 const URL = "http://192.168.1.189:8000/api/categorias";
 
 const AddProductsScreen = (props) => {
@@ -26,6 +30,7 @@ const AddProductsScreen = (props) => {
 
   useEffect(() => {
     getCategorias();
+    getProductos();
   }, []);
 
   const getCategorias = async () => {
@@ -48,6 +53,8 @@ const AddProductsScreen = (props) => {
   const { height } = useWindowDimensions();
   const navigatioon = useNavigation();
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const AlertInsert = (variable) =>
     Alert.alert("Ingreso de producto", variable, [
       { text: "OK", onPress: () => console.log("OK Pressed") },
@@ -61,7 +68,7 @@ const AddProductsScreen = (props) => {
       return;
     }
     try {
-      await fetch("http://192.168.56.1:8000/api/plato", {
+      await fetch("http://192.168.1.189:8000/api/plato", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -75,8 +82,9 @@ const AddProductsScreen = (props) => {
         }),
       });
       AlertInsert("El producto ha sido ingresado");
+      getProductos();
     } catch (error) {
-      AlertInsert("El producto no ha sido ingresado");
+      AlertInsert("Eror de servidor, el producto no ha sido ingresado");
     }
     setNombre("");
     setSelected("");
@@ -84,55 +92,125 @@ const AddProductsScreen = (props) => {
     setDescripcion("");
   };
 
+  // cargar productos
+  const ProductosURL = "http://192.168.1.189:8000/api/platos";
+  const [listaProductos, setListaProductos] = useState([]);
+
+  const getProductos = async () => {
+    const { data } = await axios.get(ProductosURL);
+    const { productos } = data;
+    setListaProductos(productos);
+  };
+
+  const renderItem = ({ item }) => (
+    <CardProducto
+      nombre={item.nombre}
+      precio={item.precio}
+      descripcion={item.descripcion}
+      item={item}
+    />
+  );
+  // fin cargar productos
+
   return (
-    <View style={styles.root}>
-      <Image
-        source={Logo}
-        style={[styles.logo, { height: height * 0.3 }]}
-        resizeMode="contain"
+    <View style={styles.container}>
+      <FlatList
+        data={listaProductos}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
       />
-      <Text style={styles.title}> AGREGAR PRODUCTOS</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="nombre"
-        value={nombre}
-        onChangeText={setNombre}
+      <Button
+        title="Agregar Producto"
+        onPress={() => {
+          setModalVisible(true);
+        }}
       />
+      <Modal
+        animationType="slide"
+        onDismiss={() => console.log("Modal close")}
+        onShow={() => console.log("Modal open")}
+        transparent
+        visible={modalVisible}
+      >
+        <SafeAreaView style={styles.contenido}>
+          <View style={styles.root}>
+            <View
+              style={{
+                height: 20,
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "flex-end",
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                  setNombre("");
+                  setSelected("");
+                  setPrecio("");
+                  setDescripcion("");
+                }}
+              >
+                <Image
+                  source={equis}
+                  style={{
+                    height: 40,
+                    width: 50,
+                    paddingRight: 30,
+                    marginRight: 30,
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.title}> AGREGAR PRODUCTO</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="nombre"
+              value={nombre}
+              onChangeText={setNombre}
+            />
 
-      <View style={styles.picker}>
-        <SelectPicker
-          titleText="Seleccione una categoria"
-          placeholder="categoria"
-          onSelectedStyle={{ fontSize: 12, color: "#6B695E" }}
-          onValueChange={(value) => {
-            // Do anything you want with the value.
-            // For example, save in state.
-            setSelected(value);
-          }}
-          selected={selected}
-        >
-          {Object.values(listaCategory).map((val) => (
-            <SelectPicker.Item key={val.id} label={val.name} value={val.name} />
-          ))}
-        </SelectPicker>
-      </View>
+            <View style={styles.picker}>
+              <SelectPicker
+                titleText="Seleccione una categoria"
+                placeholder="categoria"
+                onSelectedStyle={{ fontSize: 12, color: "#6B695E" }}
+                onValueChange={(value) => {
+                  // Do anything you want with the value.
+                  // For example, save in state.
+                  setSelected(value);
+                }}
+                selected={selected}
+              >
+                {Object.values(listaCategory).map((val) => (
+                  <SelectPicker.Item
+                    key={val.id}
+                    label={val.name}
+                    value={val.name}
+                  />
+                ))}
+              </SelectPicker>
+            </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="descripcion"
-        value={descripcion}
-        onChangeText={setDescripcion}
-      />
+            <TextInput
+              style={styles.input}
+              placeholder="descripcion"
+              value={descripcion}
+              onChangeText={setDescripcion}
+            />
 
-      <TextInput
-        style={styles.input}
-        placeholder="precio"
-        value={precio}
-        keyboardType="phone-pad"
-        onChangeText={setPrecio}
-      />
+            <TextInput
+              style={styles.input}
+              placeholder="precio"
+              value={precio}
+              keyboardType="phone-pad"
+              onChangeText={setPrecio}
+            />
 
-      <CustomButton text="Agregar" onPress={saveProduct} />
+            <CustomButton text="Agregar" onPress={saveProduct} />
+          </View>
+        </SafeAreaView>
+      </Modal>
     </View>
   );
 };
@@ -140,7 +218,6 @@ const AddProductsScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 100,
   },
   root: {
     alignItems: "center",
@@ -188,6 +265,10 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
     borderRadius: 20,
+  },
+  contenido: {
+    backgroundColor: "lightblue",
+    flex: 1,
   },
 });
 

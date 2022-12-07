@@ -54,21 +54,6 @@ const AddCategoryScreen = (propd) => {
     console.log(data);
     getCategorias();
   };
-
-  const CategoriaEliminar = (id) => {
-    Alert.alert("¿Quieres eliminar la categoria?", "", [
-      { text: "Cancelar" },
-      {
-        text: "Eliminar",
-        onPress: () => {
-          const pedidosActualizados = listaCategorias.filter(
-            (pedidoState) => pedidoState.id !== id
-          );
-          setListaCategorias(pedidosActualizados);
-        },
-      },
-    ]);
-  };
   //fin eliminar categoria
 
   const AlertInsert = (variable) =>
