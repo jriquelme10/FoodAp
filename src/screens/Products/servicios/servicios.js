@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const saveProduct = (nombre, categoria, descripcion) => {
-  fetch("http://192.168.56.1:8000/api/plato", {
+  fetch("http://192.168.1.189:8000/api/plato", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
