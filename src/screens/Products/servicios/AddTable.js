@@ -23,7 +23,7 @@ const AddTable = (props) => {
   };
 
   const saveTable = async () => {
-    await fetch("http://192.168.0.5:8000/api/mesa", {
+    await fetch("http://192.168.56.1/api/mesa", {
       method: "POST",
       headers: {
         Accept: "application/json",

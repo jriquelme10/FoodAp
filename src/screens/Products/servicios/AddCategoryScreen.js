@@ -24,7 +24,7 @@ const AddCategoryScreen = (propd) => {
   };
 
   const saveCategory = async () => {
-    await fetch("http://192.168.0.5:8000/api/categoria", {
+    await fetch("http://192.168.56.1:8000/api/categoria", {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -13,7 +13,7 @@ import SelectPicker from "react-native-form-select-picker";
 import axios from "axios"; // Import the package
 
 import { useNavigation } from "@react-navigation/native";
-const URL = "http://192.168.1.189:8000/api/mesas";
+const URL = "http://192.168.56.1:8000/api/mesas";
 
 const ClientScreen = (props) => {
   const [listnumTable, setListNumTable] = useState("");

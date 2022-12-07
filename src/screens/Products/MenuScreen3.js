@@ -14,8 +14,8 @@ import Card from "../../components/Card";
 import CardCategories from "../../components/CardCategories";
 import { FlatList } from "react-native-gesture-handler";
 
-const URLPRODUCTOS = "http://192.168.1.189:8000/api/platos";
-const URLCATEGORIAS = "http://192.168.1.189:8000/api/categorias";
+const URLPRODUCTOS = "http://192.168.56.1:8000/api/platos";
+const URLCATEGORIAS = "http://192.168.56.1:8000/api/categorias";
 
 export default function MenuScreen3() {
   const [listaProductos, setListaProducto] = useState([]);
