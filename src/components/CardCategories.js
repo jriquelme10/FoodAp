@@ -4,13 +4,11 @@ import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import CustomButton from "./CustomButton/CustomButton";
 
-function Card({ id, nombre, precio, descripcion, categoria }) {
+function CardCategories({name}) {
   return (
     <View style={styles.cardView}>
-      <Text style={styles.title}>{nombre}</Text>
-      <Text style={styles.title}>Precio: ${precio}</Text>
-      <Text style={styles.title}>{descripcion}</Text>
-      <CustomButton text={"Agregar"}/>
+      <Text style={ styles.title}>{name}</Text>
+      <CustomButton text={"Ver productos"}/>
     </View>
   );
 }
@@ -33,14 +31,11 @@ const styles = StyleSheet.create({
     elevation: 3,
     alignSelf: "stretch",
   },
-  title: {
+  title:{
     fontSize: 20,
+    textAlign:'center',
     marginBottom: 10,
     fontWeight: "bold",
-  },
+  }
 });
-
-
-
-
-export default Card;
+export default CardCategories;

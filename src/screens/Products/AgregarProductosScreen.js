@@ -65,6 +65,7 @@ const AddProductsScreen = (props) => {
   const { categorias: categorias } = props;
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
+  const [image, setImage] = useState("");
   const { height } = useWindowDimensions();
   const navigatioon = useNavigation();
 
@@ -92,6 +93,7 @@ const AddProductsScreen = (props) => {
           categoria: selected,
           precio: precio,
           descripcion: descripcion,
+          image:image,
         }),
       });
       AlertInsert("El producto ha sido ingresado");
@@ -188,6 +190,12 @@ const AddProductsScreen = (props) => {
         value={precio}
         keyboardType="phone-pad"
         onChangeText={setPrecio}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Ingresa el link de tu imagen"
+        value={image}
+        onChangeText={setImage}
       />
 
       <CustomButton text="Agregar" onPress={saveProduct} />

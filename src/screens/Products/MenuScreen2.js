@@ -18,6 +18,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Cart from "./Cart";
 import MenuScreen3 from "./MenuScreen3";
+import MenuScreen4 from "./MenuScreen4";
 
 export const EjemContext = React.createContext();
 
@@ -25,7 +26,6 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const URL = "http://192.168.0.5:8000/api/platos";
-
 
 export default function MenuScreen2() {
   const image = {
@@ -35,6 +35,7 @@ export default function MenuScreen2() {
     <NavigationContainer independent={true}>
       <Tab.Navigator>
         <Tab.Screen name="Productos" component={MenuScreen3} />
+        <Tab.Screen name="Categorias" component={MenuScreen4} />
         <Tab.Screen
           name="Carro"
           component={Cart}
