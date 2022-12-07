@@ -42,11 +42,24 @@ const AddCategoryScreen = (propd) => {
   };
 
   const renderItemCategories = ({ item }) => (
-    <CardCategoria name={item.name} eliminar={deleteCategory} item={item} />
+    <CardCategoria name={item.name} eliminar={eliminarCategoria} item={item} />
   );
   // fin cargar categorias
 
   //eliminar categoria
+
+  const eliminarCategoria = (id) => {
+    Alert.alert("¿Quieres eliminar la categoria?", "", [
+      { text: "Cancelar" },
+      {
+        text: "Eliminar",
+        onPress: () => {
+          deleteCategory(id);
+        },
+      },
+    ]);
+  };
+
   const deleteCategory = async (id) => {
     const { data } = await axios.delete(
       `http://192.168.1.189:8000/api/categorias/${id}`
@@ -81,6 +94,7 @@ const AddCategoryScreen = (propd) => {
         }),
       });
       AlertInsert("La categoria ha sido ingresada");
+      getCategorias();
     } catch (error) {
       AlertInsert("La categoria no ha sido ingresada");
     }

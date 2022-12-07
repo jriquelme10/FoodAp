@@ -43,9 +43,6 @@ const AddProductsScreen = (props) => {
   const onChangeHandler = (nombreValue) => {
     setNombre(nombreValue);
   };
-  const [categoryPicker, setCategorPicker] = useState("");
-  const [selectPicker, setSelectPicker] = useState("");
-  const [id, setID] = useState("");
   const [categoria, setCategorias] = useState([]);
   const { categorias: categorias } = props;
   const [descripcion, setDescripcion] = useState("");
@@ -54,6 +51,28 @@ const AddProductsScreen = (props) => {
   const navigatioon = useNavigation();
 
   const [modalVisible, setModalVisible] = useState(false);
+
+  //eliminar producto
+  const eliminarProducto = (id) => {
+    Alert.alert("¿Quieres eliminar el producto?", "", [
+      { text: "Cancelar" },
+      {
+        text: "Eliminar",
+        onPress: () => {
+          deleteProducto(id);
+        },
+      },
+    ]);
+  };
+
+  const deleteProducto = async (id) => {
+    const { data } = await axios.delete(
+      `http://192.168.1.189:8000/api/platos/${id}`
+    );
+    console.log(data);
+    getProductos();
+  };
+  //fin eliminar producto
 
   const AlertInsert = (variable) =>
     Alert.alert("Ingreso de producto", variable, [
@@ -108,6 +127,7 @@ const AddProductsScreen = (props) => {
       precio={item.precio}
       descripcion={item.descripcion}
       item={item}
+      eliminar={eliminarProducto}
     />
   );
   // fin cargar productos

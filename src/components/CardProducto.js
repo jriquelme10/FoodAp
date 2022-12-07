@@ -4,7 +4,7 @@ import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import CustomButton from "./CustomButton/CustomButton";
 
-function Card({ nombre, precio, descripcion, categoria, item }) {
+function Card({ nombre, precio, descripcion, categoria, item, eliminar }) {
   const { id } = item;
   return (
     <View style={styles.cardView}>
