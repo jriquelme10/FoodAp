@@ -93,7 +93,7 @@ const AddProductsScreen = (props) => {
           categoria: selected,
           precio: precio,
           descripcion: descripcion,
-          image:image,
+          image: image,
         }),
       });
       AlertInsert("El producto ha sido ingresado");
