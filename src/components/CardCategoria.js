@@ -4,11 +4,20 @@ import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import CustomButton from "./CustomButton/CustomButton";
 
-function CardCategories({ name }) {
+function CardCategories({ name, eliminar, item }) {
+  const { id } = item;
   return (
     <View style={styles.cardView}>
+      <Button
+        mode="contained"
+        buttonColor="#CF443B"
+        onPress={() => eliminar(id)}
+      >
+        Eliminar
+      </Button>
+
       <Text style={styles.title}>{name}</Text>
-      <CustomButton text={"Ver productos"} />
+      <CustomButton text={"cambiar nombre"} />
     </View>
   );
 }
@@ -18,7 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     marginVertical: 5,
-    marginHorizontal: 9,
+    marginHorizontal: 20,
     alignSelf: "stretch",
     padding: 35,
     shadowColor: "#000",

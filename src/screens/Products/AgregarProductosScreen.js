@@ -34,21 +34,6 @@ const AddProductsScreen = (props) => {
     setListaCategory(category);
   };
 
-  // useEffect(() => {
-  //   (async function () {
-  //     try {
-  //       const response = await fetch("http://192.168.0.5:8000/api/categorias", {
-  //         method: "GET",
-  //       });
-  //       const data = await response.json();
-  //       setCategorias(data);
-  //       categorypicker();
-  //     } catch (error) {
-  //       console.log("error categorias");
-  //     }
-  //   })();
-  // }, []);
-
   const [nombre, setNombre] = useState("");
   const onChangeHandler = (nombreValue) => {
     setNombre(nombreValue);
@@ -98,12 +83,6 @@ const AddProductsScreen = (props) => {
     setPrecio("");
     setDescripcion("");
   };
-  // const saveProduct = async () => {
-  //   console.log(nombre, categoria, descripcion, precio);
-  //   const obj = { nombre, categoria, descripcion, precio };
-  //   const { data } = await axios.post(URL, obj);
-  //   console.log(data);
-  // };
 
   return (
     <View style={styles.root}>
@@ -119,26 +98,7 @@ const AddProductsScreen = (props) => {
         value={nombre}
         onChangeText={setNombre}
       />
-      {/* <Picker
-        selectedValue={Picker}
-        onValueChange={(select) => setPicker(select)}
-        style={styles.picker}
-        itemStyle={{ height: 80 }}
-      >
-        <Picker.Item
-          style={{ color: "white" }}
-          label="- Seleccione -"
-          value=""
-        />
-        {categorias.map((elemento) => (
-          <Picker.Item
-            key={elemento.id}
-            label={elemento.nombre}
-            value={elemento.id}
-          />
-        ))}
-        
-      </Picker> */}
+
       <View style={styles.picker}>
         <SelectPicker
           titleText="Seleccione una categoria"
@@ -156,22 +116,6 @@ const AddProductsScreen = (props) => {
           ))}
         </SelectPicker>
       </View>
-
-      {/* <View style={styles.campo}>
-        <Picker
-          selectedValue={selectPicker}
-          onValueChange={(select) => setSelectPicker(select)}
-        >
-          <Picker.Item label="- Seleccione -" value="" />
-          {array.map((elemento) => (
-            <Picker.Item
-              key={elemento.id}
-              label={elemento.name}
-              value={elemento.id}
-            />
-          ))}
-        </Picker>
-      </View> */}
 
       <TextInput
         style={styles.input}
@@ -192,34 +136,6 @@ const AddProductsScreen = (props) => {
     </View>
   );
 };
-
-// const saveProduct = (nombre, categoria, descripcion) => {
-//   fetch("http://192.168.1.189:8000/api/plato", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       nombre: "nombre",
-//       categoria: "categoria",
-//       descripcion: "descripcion",
-//       precio: 1000
-//     }),
-//   })
-//     .then((res) => {
-//       console.log(res.status);
-//       console.log(res.headers);
-//       return res.json();
-//     })
-//     .then(
-//       (result) => {
-//         console.log(result);
-//       },
-//       (error) => {
-//         console.log(error);
-//       }
-//     );
-// }
 
 const styles = StyleSheet.create({
   container: {

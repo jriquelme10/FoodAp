@@ -7,14 +7,19 @@ import {
   StyleSheet,
   Alert,
   useWindowDimensions,
+  FlatList,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "../../../../assets/images/logo.png";
 import CustomButton from "../../../components/CustomButton/CustomButton";
-
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { set } from "react-hook-form";
+
+import CardCategoria from "../../../components/CardCategoria";
+
+const URLCATEGORIAS = "http://192.168.1.189:8000/api/categorias";
+
 const AddCategoryScreen = (propd) => {
   const { height } = useWindowDimensions();
   const navigatioon = useNavigation();
@@ -23,11 +28,55 @@ const AddCategoryScreen = (propd) => {
     setName(nameValue);
   };
 
+  // cargar categorias
+  const [listaCategorias, setListaCategorias] = useState([]);
+
+  useEffect(() => {
+    getCategorias();
+  }, []);
+
+  const getCategorias = async () => {
+    const { data } = await axios.get(URLCATEGORIAS);
+    const { category } = data;
+    setListaCategorias(category);
+  };
+
+  const renderItemCategories = ({ item }) => (
+    <CardCategoria name={item.name} eliminar={deleteCategory} item={item} />
+  );
+  // fin cargar categorias
+
+  //eliminar categoria
+  const deleteCategory = async (id) => {
+    const { data } = await axios.delete(
+      `http://192.168.1.189:8000/api/categorias/${id}`
+    );
+    console.log(data);
+    getCategorias();
+  };
+
+  const CategoriaEliminar = (id) => {
+    Alert.alert("¿Quieres eliminar la categoria?", "", [
+      { text: "Cancelar" },
+      {
+        text: "Eliminar",
+        onPress: () => {
+          const pedidosActualizados = listaCategorias.filter(
+            (pedidoState) => pedidoState.id !== id
+          );
+          setListaCategorias(pedidosActualizados);
+        },
+      },
+    ]);
+  };
+  //fin eliminar categoria
+
   const AlertInsert = (variable) =>
     Alert.alert("Ingreso de Categoria", variable, [
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
+  //guardar categoria
   const saveCategory = async () => {
     if ([name].includes("")) {
       Alert.alert("Error", "No ha ingresado un nombre a la categoria.", [
@@ -53,13 +102,23 @@ const AddCategoryScreen = (propd) => {
     setName("");
   };
 
+  //fin guardar categoria
+
   return (
     <View style={styles.root}>
-      <Image
-        source={Logo}
-        style={[styles.logo, { height: height * 0.3 }]}
-        resizeMode="contain"
-      />
+      <View
+        style={{
+          height: 500,
+          width: 400,
+        }}
+      >
+        <FlatList
+          data={listaCategorias}
+          renderItem={renderItemCategories}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
+
       <Text style={styles.title}> AGREGAR CATEGORIAS</Text>
       <TextInput
         style={styles.input}
