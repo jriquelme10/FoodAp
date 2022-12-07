@@ -22,17 +22,33 @@ const AddTable = (props) => {
     setName(numberValue);
   };
 
+  const AlertInsert = (variable) =>
+    Alert.alert("Ingreso de Mesa", variable, [
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
+
   const saveTable = async () => {
-    await fetch("http://192.168.1.189:8000/api/mesa", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        number_table: number_table,
-      }),
-    });
+    if ([number_table].includes("")) {
+      Alert.alert("Error", "No ha ingresado un numero a la mesa.", [
+        { text: "Ok" },
+      ]);
+      return;
+    }
+    try {
+      await fetch("http://192.168.1.189:8000/api/mesa", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          number_table: number_table,
+        }),
+      });
+      AlertInsert("La mesa ha sido ingresada");
+    } catch (error) {
+      AlertInsert("La mesa no ha sido ingresada");
+    }
   };
   return (
     <View style={styles.root}>
@@ -46,6 +62,7 @@ const AddTable = (props) => {
         style={styles.input}
         placeholder="Numero de mesa"
         value={number_table}
+        keyboardType="phone-pad"
         onChangeText={setNumber_table}
       />
 

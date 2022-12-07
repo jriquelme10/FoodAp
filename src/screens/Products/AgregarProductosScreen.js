@@ -13,71 +13,73 @@ import Logo from "../../../assets/images/logo.png";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
-import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 import { set } from "react-hook-form";
+import { Picker } from "@react-native-picker/picker";
+import SelectPicker from "react-native-form-select-picker"; // Import the package
+const options = ["Apple", "Banana", "Orange"];
+const URL = "http://192.168.1.189:8000/api/categorias";
 
 const AddProductsScreen = (props) => {
+  const [listaCategory, setListaCategory] = useState("");
+  const [selected, setSelected] = useState("");
+
   useEffect(() => {
-    (async function () {
-      try {
-        const response = await fetch("http://192.168.0.5:8000/api/categorias", {
-          method: "GET",
-        });
-        const data = await response.json();
-        setCategorias(data);
-        categorypicker();
-      } catch (error) {
-        console.log("error categorias");
-      }
-    })();
+    getCategorias();
   }, []);
+
+  const getCategorias = async () => {
+    const { data } = await axios.get(URL);
+    const { category } = data;
+    setListaCategory(category);
+  };
+
+  // useEffect(() => {
+  //   (async function () {
+  //     try {
+  //       const response = await fetch("http://192.168.0.5:8000/api/categorias", {
+  //         method: "GET",
+  //       });
+  //       const data = await response.json();
+  //       setCategorias(data);
+  //       categorypicker();
+  //     } catch (error) {
+  //       console.log("error categorias");
+  //     }
+  //   })();
+  // }, []);
 
   const [nombre, setNombre] = useState("");
   const onChangeHandler = (nombreValue) => {
     setNombre(nombreValue);
   };
   const [categoryPicker, setCategorPicker] = useState("");
-  const [Picker, setPicker] = useState("");
-  const [listaCategorias, setListCategorias] = useState([]);
+  const [selectPicker, setSelectPicker] = useState("");
   const [id, setID] = useState("");
-  const [categoria, setCategorias] = useState("");
+  const [categoria, setCategorias] = useState([]);
+  const array = [
+    { id: "1", nombre: "diego" },
+    { id: "2", nombre: "alfonso" },
+    { id: "3", nombre: "miguel" },
+  ];
   const { categorias: categorias } = props;
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
   const { height } = useWindowDimensions();
   const navigatioon = useNavigation();
 
-  const AlertInsert = () =>
-    Alert.alert("Ingreso de producto", "El producto ha sido agregado", [
+  const AlertInsert = (variable) =>
+    Alert.alert("Ingreso de producto", variable, [
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
-  // const saveProduct = () => {
-  //   console.log(nombre, categoria, descripcion, precio);
-  //   fetch("http://192.168.1.189:8000/api/plato", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       accept: "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       nombre: nombre,
-  //       categoria: categoria,
-  //       descripcion: descripcion,
-  //       precio: precio,
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log("exito");
-  //     })
-  //     .catch((err) => {
-  //       console.log("Error occurred: " + err);
-  //     });categorias
-  // };
-  //url : 192.168.1.189
   const saveProduct = async () => {
+    if ([nombre, descripcion, precio, selected].includes("")) {
+      Alert.alert("Error", "Todos los campos son obligatorios.", [
+        { text: "Ok" },
+      ]);
+      return;
+    }
     try {
       await fetch("http://192.168.1.189:8000/api/plato", {
         method: "POST",
@@ -87,13 +89,14 @@ const AddProductsScreen = (props) => {
         },
         body: JSON.stringify({
           nombre: nombre,
-          categoria: categoria,
+          categoria: selected,
           precio: precio,
           descripcion: descripcion,
         }),
       });
+      AlertInsert("El producto ha sido ingresado");
     } catch (error) {
-      console.log("El producto no ha sido ingresado");
+      AlertInsert("El producto no ha sido ingresado");
     }
   };
 
@@ -138,12 +141,40 @@ const AddProductsScreen = (props) => {
         ))}
         
       </Picker> */}
-      <TextInput
-        style={styles.input}
-        placeholder="categoria"
-        value={categoria}
-        onChangeText={setCategorias}
-      />
+      <View style={styles.picker}>
+        <SelectPicker
+          titleText="Seleccione una categoria"
+          placeholder="categoria"
+          onSelectedStyle={{ fontSize: 12, color: "#6B695E" }}
+          onValueChange={(value) => {
+            // Do anything you want with the value.
+            // For example, save in state.
+            setSelected(value);
+          }}
+          selected={selected}
+        >
+          {Object.values(listaCategory).map((val) => (
+            <SelectPicker.Item key={val.id} label={val.name} value={val.name} />
+          ))}
+        </SelectPicker>
+      </View>
+
+      {/* <View style={styles.campo}>
+        <Picker
+          selectedValue={selectPicker}
+          onValueChange={(select) => setSelectPicker(select)}
+        >
+          <Picker.Item label="- Seleccione -" value="" />
+          {array.map((elemento) => (
+            <Picker.Item
+              key={elemento.id}
+              label={elemento.name}
+              value={elemento.id}
+            />
+          ))}
+        </Picker>
+      </View> */}
+
       <TextInput
         style={styles.input}
         placeholder="descripcion"
@@ -193,6 +224,10 @@ const AddProductsScreen = (props) => {
 // }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 100,
+  },
   root: {
     alignItems: "center",
     padding: 20,
@@ -205,10 +240,10 @@ const styles = StyleSheet.create({
   },
   picker: {
     backgroundColor: "#FFF",
-    borderRadius: 10,
-    fontSize: 17,
+    borderRadius: 5,
+    fontSize: 15,
     marginBottom: 10,
-    width: 330,
+    width: 350,
     alignSelf: "center",
   },
 
@@ -227,6 +262,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
     fontWeight: "bold",
+  },
+  campo: {
+    backgroundColor: "#FFF",
+    marginHorizontal: 20,
+    marginVertical: 20,
+    borderRadius: 10,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
+    borderRadius: 20,
   },
 });
 

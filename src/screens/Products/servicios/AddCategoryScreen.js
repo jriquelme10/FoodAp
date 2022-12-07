@@ -23,17 +23,33 @@ const AddCategoryScreen = (propd) => {
     setName(nameValue);
   };
 
+  const AlertInsert = (variable) =>
+    Alert.alert("Ingreso de Categoria", variable, [
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
+
   const saveCategory = async () => {
-    await fetch("http://192.168.1.189:8000/api/categoria", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-      }),
-    });
+    if ([name].includes("")) {
+      Alert.alert("Error", "No ha ingresado un nombre a la categoria.", [
+        { text: "Ok" },
+      ]);
+      return;
+    }
+    try {
+      await fetch("http://192.168.1.189:8000/api/categoria", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+        }),
+      });
+      AlertInsert("La categoria ha sido ingresada");
+    } catch (error) {
+      AlertInsert("La categoria no ha sido ingresada");
+    }
   };
 
   return (
