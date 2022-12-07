@@ -49,6 +49,7 @@ const AddTable = (props) => {
     } catch (error) {
       AlertInsert("La mesa no ha sido ingresada");
     }
+    setNumber_table("");
   };
   return (
     <View style={styles.root}>

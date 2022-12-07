@@ -50,6 +50,7 @@ const AddCategoryScreen = (propd) => {
     } catch (error) {
       AlertInsert("La categoria no ha sido ingresada");
     }
+    setName("");
   };
 
   return (

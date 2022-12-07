@@ -93,8 +93,11 @@ const AddProductsScreen = (props) => {
     } catch (error) {
       AlertInsert("El producto no ha sido ingresado");
     }
+    setNombre("");
+    setSelected("");
+    setPrecio("");
+    setDescripcion("");
   };
-
   // const saveProduct = async () => {
   //   console.log(nombre, categoria, descripcion, precio);
   //   const obj = { nombre, categoria, descripcion, precio };
