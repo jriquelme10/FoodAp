@@ -57,11 +57,6 @@ const AddProductsScreen = (props) => {
   const [selectPicker, setSelectPicker] = useState("");
   const [id, setID] = useState("");
   const [categoria, setCategorias] = useState([]);
-  const array = [
-    { id: "1", nombre: "diego" },
-    { id: "2", nombre: "alfonso" },
-    { id: "3", nombre: "miguel" },
-  ];
   const { categorias: categorias } = props;
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
