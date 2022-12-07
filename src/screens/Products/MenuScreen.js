@@ -33,7 +33,7 @@ import ensalada2 from "../../../Comidas/ensalada2.png";
 import ensalada3 from "../../../Comidas/ensalada3.png";
 import cocacola from "../../../Comidas/cocacola.png";
 import aguamineralGas from "../../../Comidas/aguamineralGAS.png";
-const URL = "http://192.168.1.189/api/platos";
+const URL = "http://192.168.56.1/api/platos";
 
 const MenuScreen = () => {
   const navigatioon = useNavigation();

@@ -35,7 +35,7 @@ const AddTable = (props) => {
       return;
     }
     try {
-      await fetch("http://192.168.1.189:8000/api/mesa", {
+      await fetch("http://192.168.56.1:8000/api/mesa", {
         method: "POST",
         headers: {
           Accept: "application/json",
