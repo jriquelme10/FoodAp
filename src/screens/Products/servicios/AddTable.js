@@ -41,7 +41,7 @@ const AddTable = (props) => {
       return;
     }
     try {
-      await fetch("http://192.168.1.189:8000/api/mesa", {
+      await fetch(`${URLBASE}` + "/api/mesa", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -101,9 +101,7 @@ const AddTable = (props) => {
   };
 
   const deleteTable = async (id) => {
-    const { data } = await axios.delete(
-      `http://192.168.1.189:8000/api/mesas/${id}`
-    );
+    const { data } = await axios.delete(`${URLBASE}` + `/api/mesas/${id}`);
     console.log(data);
     getTables();
   };

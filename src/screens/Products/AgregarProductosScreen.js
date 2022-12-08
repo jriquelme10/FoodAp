@@ -22,7 +22,8 @@ import { set } from "react-hook-form";
 import SelectPicker from "react-native-form-select-picker"; // Import the package
 import equis from "../../../assets/images/equis.png";
 import CardProducto from "../../components/CardProducto";
-const URL = "http://192.168.1.189:8000/api/categorias";
+import { URLBASE } from "../../../URL_API";
+const URL = `${URLBASE}` + "/api/categorias";
 
 const AddProductsScreen = (props) => {
   const [listaCategory, setListaCategory] = useState("");
@@ -67,9 +68,7 @@ const AddProductsScreen = (props) => {
   };
 
   const deleteProducto = async (id) => {
-    const { data } = await axios.delete(
-      `http://192.168.1.189:8000/api/platos/${id}`
-    );
+    const { data } = await axios.delete(`${URLBASE}` + `/api/platos/${id}`);
     console.log(data);
     getProductos();
   };
@@ -88,7 +87,7 @@ const AddProductsScreen = (props) => {
       return;
     }
     try {
-      await fetch("http://192.168.1.189:8000/api/plato", {
+      await fetch(`${URLBASE}` + "/api/plato", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -113,7 +112,7 @@ const AddProductsScreen = (props) => {
   };
 
   // cargar productos
-  const ProductosURL = "http://192.168.1.189:8000/api/platos";
+  const ProductosURL = `${URLBASE}` + "/api/platos";
   const [listaProductos, setListaProductos] = useState([]);
 
   const getProductos = async () => {
@@ -136,9 +135,7 @@ const AddProductsScreen = (props) => {
 
   //editar producto
   const editarProducto = async (id) => {
-    const { data } = await axios.get(
-      `http://192.168.1.189:8000/api/plato/${id}`
-    );
+    const { data } = await axios.get(`${URLBASE}` + `/api/plato/${id}`);
     console.log(data);
     setId(data.id);
     setNombre(data.nombre);
@@ -150,10 +147,7 @@ const AddProductsScreen = (props) => {
   };
   const updateProduct = async () => {
     const obj = { id, nombre, selected, precio, descripcion };
-    const { data } = await axios.put(
-      `http://192.168.1.189:8000/api/platoUPDATE`,
-      obj
-    );
+    const { data } = await axios.put(`${URLBASE}` + `/api/platoUPDATE`, obj);
     console.log(data);
     getProductos();
     setNombre("");
@@ -215,7 +209,11 @@ const AddProductsScreen = (props) => {
                 />
               </TouchableOpacity>
             </View>
-            <Text style={styles.title}> AGREGAR PRODUCTO</Text>
+            {existe === "si" ? (
+              <Text style={styles.title}> ACTUALIZAR PRODUCTO</Text>
+            ) : (
+              <Text style={styles.title}> AGREGAR PRODUCTO</Text>
+            )}
             <TextInput
               style={styles.input}
               placeholder="nombre"
@@ -255,7 +253,7 @@ const AddProductsScreen = (props) => {
             <TextInput
               style={styles.input}
               placeholder="precio"
-              value={precio}
+              value={precio.toString()}
               keyboardType="phone-pad"
               onChangeText={setPrecio}
             />

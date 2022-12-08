@@ -7,8 +7,9 @@ import SignInScreen from "./src/screens/SigninScreen/SignInScreen";
 import RegisterScreen from "./src/screens/RegisterScreen/RegisterScreen";
 import Navigation from "./src/navigation/Navigation";
 import axios from "axios";
+import { URLBASE } from "./URL_API";
 
-const URL = "http://192.168.1.189/testBackEnd/public/plato";
+const URL = `${URLBASE}` + "/testBackEnd/public/plato";
 
 import Card from "./src/components/Card";
 import { FlatList } from "react-native-gesture-handler";

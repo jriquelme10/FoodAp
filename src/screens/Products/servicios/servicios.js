@@ -1,7 +1,7 @@
 import axios from "axios";
-
+import { URLBASE } from "../../../../URL_API";
 const saveProduct = (nombre, categoria, descripcion) => {
-  fetch("http://192.168.1.189:8000/api/plato", {
+  fetch(`${URLBASE}` + "/api/plato", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

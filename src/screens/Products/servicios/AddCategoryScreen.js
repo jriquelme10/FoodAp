@@ -15,10 +15,11 @@ import CustomButton from "../../../components/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { set } from "react-hook-form";
+import { URLBASE } from "../../../../URL_API";
 
 import CardCategoria from "../../../components/CardCategoria";
 
-const URLCATEGORIAS = "http://192.168.1.189:8000/api/categorias";
+const URLCATEGORIAS = `${URLBASE}` + "/api/categorias";
 
 const AddCategoryScreen = (propd) => {
   const { height } = useWindowDimensions();
@@ -65,9 +66,7 @@ const AddCategoryScreen = (propd) => {
   };
 
   const deleteCategory = async (id) => {
-    const { data } = await axios.delete(
-      `http://192.168.1.189:8000/api/categorias/${id}`
-    );
+    const { data } = await axios.delete(`${URLBASE}` + `/api/categorias/${id}`);
     console.log(data);
     getCategorias();
   };
@@ -87,7 +86,7 @@ const AddCategoryScreen = (propd) => {
       return;
     }
     try {
-      await fetch("http://192.168.1.189:8000/api/categoria", {
+      await fetch(`${URLBASE}` + "/api/categoria", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -109,9 +108,7 @@ const AddCategoryScreen = (propd) => {
 
   //editar categoria
   const editarProducto = async (id) => {
-    const { data } = await axios.get(
-      `http://192.168.1.189:8000/api/categoria/${id}`
-    );
+    const { data } = await axios.get(`${URLBASE}` + `/api/categoria/${id}`);
     console.log(data);
     // setId(data.id);
     setName(data.name);
@@ -125,7 +122,7 @@ const AddCategoryScreen = (propd) => {
     }
     const obj = { id, name };
     const { data } = await axios.put(
-      `http://192.168.1.189:8000/api/categoriaUPDATE`,
+      `${URLBASE}` + `/api/categoriaUPDATE`,
       obj
     );
     console.log(data);
