@@ -27,6 +27,7 @@ const URL = "http://192.168.1.189:8000/api/categorias";
 const AddProductsScreen = (props) => {
   const [listaCategory, setListaCategory] = useState("");
   const [selected, setSelected] = useState("");
+  const [existe, setExiste] = useState("no");
 
   useEffect(() => {
     getCategorias();
@@ -43,12 +44,12 @@ const AddProductsScreen = (props) => {
   const onChangeHandler = (nombreValue) => {
     setNombre(nombreValue);
   };
-  const [categoria, setCategorias] = useState([]);
   const { categorias: categorias } = props;
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
   const { height } = useWindowDimensions();
   const navigatioon = useNavigation();
+  const [id, setId] = useState("");
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -139,12 +140,30 @@ const AddProductsScreen = (props) => {
       `http://192.168.1.189:8000/api/plato/${id}`
     );
     console.log(data);
+    setId(data.id);
     setNombre(data.nombre);
     setSelected(data.categoria);
     setPrecio(data.precio);
     setDescripcion(data.descripcion);
+    setExiste("si");
     setModalVisible(true);
   };
+  const updateProduct = async () => {
+    const obj = { id, nombre, selected, precio, descripcion };
+    const { data } = await axios.put(
+      `http://192.168.1.189:8000/api/platoUPDATE`,
+      obj
+    );
+    console.log(data);
+    getProductos();
+    setNombre("");
+    setSelected("");
+    setPrecio("");
+    setDescripcion("");
+    setModalVisible(false);
+  };
+  //fin editar producto
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -155,6 +174,7 @@ const AddProductsScreen = (props) => {
       <Button
         title="Agregar Producto"
         onPress={() => {
+          setExiste("no");
           setModalVisible(true);
         }}
       />
@@ -240,7 +260,10 @@ const AddProductsScreen = (props) => {
               onChangeText={setPrecio}
             />
 
-            <CustomButton text="Agregar" onPress={saveProduct} />
+            <CustomButton
+              text={existe === "si" ? "Actualizar" : "Agregar"}
+              onPress={existe === "si" ? updateProduct : saveProduct}
+            />
           </View>
         </SafeAreaView>
       </Modal>
