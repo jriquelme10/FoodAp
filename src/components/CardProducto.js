@@ -4,7 +4,15 @@ import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import CustomButton from "./CustomButton/CustomButton";
 
-function Card({ nombre, precio, descripcion, categoria, item, eliminar }) {
+function Card({
+  nombre,
+  precio,
+  descripcion,
+  categoria,
+  item,
+  eliminar,
+  editar,
+}) {
   const { id } = item;
   return (
     <View style={styles.cardView}>
@@ -16,9 +24,15 @@ function Card({ nombre, precio, descripcion, categoria, item, eliminar }) {
         Eliminar
       </Button>
       <Text style={styles.title}>{nombre}</Text>
-      <Text style={styles.title}>Precio: ${precio}</Text>
-      <Text style={styles.title}>{descripcion}</Text>
-      <CustomButton text={"Editar"} />
+      <Text style={styles.price}>Precio: ${precio}</Text>
+      <Text style={styles.descripcion}>{descripcion}</Text>
+      <Button
+        mode="contained-tonal"
+        buttonColor="#3C7EB1"
+        onPress={() => editar(id)}
+      >
+        Editar
+      </Button>
     </View>
   );
 }
@@ -43,6 +57,16 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
+    marginBottom: 10,
+    fontWeight: "bold",
+  },
+  price: {
+    fontSize: 18,
+    marginBottom: 10,
+    fontWeight: "bold",
+  },
+  descripcion: {
+    fontSize: 16,
     marginBottom: 10,
     fontWeight: "bold",
   },

@@ -128,10 +128,23 @@ const AddProductsScreen = (props) => {
       descripcion={item.descripcion}
       item={item}
       eliminar={eliminarProducto}
+      editar={editarProducto}
     />
   );
   // fin cargar productos
 
+  //editar producto
+  const editarProducto = async (id) => {
+    const { data } = await axios.get(
+      `http://192.168.1.189:8000/api/plato/${id}`
+    );
+    console.log(data);
+    setNombre(data.nombre);
+    setSelected(data.categoria);
+    setPrecio(data.precio);
+    setDescripcion(data.descripcion);
+    setModalVisible(true);
+  };
   return (
     <View style={styles.container}>
       <FlatList
