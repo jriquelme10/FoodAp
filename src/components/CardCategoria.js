@@ -4,7 +4,7 @@ import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import CustomButton from "./CustomButton/CustomButton";
 
-function CardCategories({ name, eliminar, item }) {
+function CardCategories({ name, eliminar, item, editar }) {
   const { id } = item;
   return (
     <View style={styles.cardView}>
@@ -17,7 +17,13 @@ function CardCategories({ name, eliminar, item }) {
       </Button>
 
       <Text style={styles.title}>{name}</Text>
-      <CustomButton text={"cambiar nombre"} />
+      <Button
+        mode="contained-tonal"
+        buttonColor="#3C7EB1"
+        onPress={() => editar(id)}
+      >
+        Renombrar
+      </Button>
     </View>
   );
 }

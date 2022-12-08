@@ -27,7 +27,6 @@ const AddCategoryScreen = (propd) => {
   const onChangeHandler = (nameValue) => {
     setName(nameValue);
   };
-
   // cargar categorias
   const [listaCategorias, setListaCategorias] = useState([]);
 
@@ -42,7 +41,12 @@ const AddCategoryScreen = (propd) => {
   };
 
   const renderItemCategories = ({ item }) => (
-    <CardCategoria name={item.name} eliminar={eliminarCategoria} item={item} />
+    <CardCategoria
+      name={item.name}
+      eliminar={eliminarCategoria}
+      item={item}
+      editar={updateCategory}
+    />
   );
   // fin cargar categorias
 
@@ -103,11 +107,38 @@ const AddCategoryScreen = (propd) => {
 
   //fin guardar categoria
 
+  //editar categoria
+  const editarProducto = async (id) => {
+    const { data } = await axios.get(
+      `http://192.168.1.189:8000/api/categoria/${id}`
+    );
+    console.log(data);
+    // setId(data.id);
+    setName(data.name);
+  };
+  const updateCategory = async (id) => {
+    if ([name].includes("")) {
+      Alert.alert("Error", "No ha ingresado un nuevo nombre a la categoria.", [
+        { text: "Ok" },
+      ]);
+      return;
+    }
+    const obj = { id, name };
+    const { data } = await axios.put(
+      `http://192.168.1.189:8000/api/categoriaUPDATE`,
+      obj
+    );
+    console.log(data);
+    getCategorias();
+    setName("");
+  };
+  //fin editar categoria
+
   return (
     <View style={styles.root}>
       <View
         style={{
-          height: 500,
+          height: 550,
           width: 400,
         }}
       >
@@ -118,7 +149,6 @@ const AddCategoryScreen = (propd) => {
         />
       </View>
 
-      <Text style={styles.title}> AGREGAR CATEGORIAS</Text>
       <TextInput
         style={styles.input}
         placeholder="Nombre de la categoría"
