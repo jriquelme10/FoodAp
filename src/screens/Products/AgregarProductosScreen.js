@@ -22,6 +22,7 @@ import { set } from "react-hook-form";
 import SelectPicker from "react-native-form-select-picker"; // Import the package
 import equis from "../../../assets/images/equis.png";
 import CardProducto from "../../components/CardProducto";
+import * as ImagePicker from "expo-image-picker";
 import { URLBASE } from "../../../URL_API";
 const URL = `${URLBASE}` + "/api/categorias";
 
@@ -158,6 +159,54 @@ const AddProductsScreen = (props) => {
   };
   //fin editar producto
 
+  //imagen
+  function imagePickerChoose(props) {
+    const [image, setImage] = useState(null);
+    const [photoStatus, setPhotoStatus] = useState(
+      "No se ha seleccionado ninguna imagen"
+    );
+    useEffect(() => {
+      (async () => {
+        if (Platform.OS !== "web") {
+          const { status } =
+            await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (status !== "granted") {
+            alert("Lo sentimos, necesitamos permisos de la galeria");
+          }
+        }
+      })();
+    }, []);
+
+    const pickImage = async () => {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: false,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      console.log(result);
+
+      if (!result.cancelled) {
+        setImage(result.uri);
+        setPhotoStatus("Imagen cargada correctamente");
+      }
+      props.parentCallback(result);
+    };
+    return (
+      <View style={{ alignItems: "center" }}>
+        <Button title="Seleccionar imagen" onPress={pickImage} />
+        <Text style={{ fontSize: 12, marginBottom: 20, color: "#8888" }}>
+          {photoStatus}
+        </Text>
+        {image && (
+          <Image source={{ uri: image }} style={{ width: 300, height: 300 }} />
+        )}
+      </View>
+    );
+  }
+
+  // fin imagen
   return (
     <View style={styles.container}>
       <FlatList
