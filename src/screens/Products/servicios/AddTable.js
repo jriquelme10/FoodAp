@@ -16,8 +16,9 @@ import Logo from "../../../../assets/images/logo.png";
 import { useNavigation } from "@react-navigation/native";
 import CardTables from "../../../components/CardTables";
 import axios from "axios";
+import { URLBASE } from "../../../../URL_API";
 
-const URLTABLES = "http://192.168.1.189:8000/api/mesas";
+const URLTABLES = `${URLBASE}` + "/api/mesas";
 
 const AddTable = (props) => {
   const { height } = useWindowDimensions();
