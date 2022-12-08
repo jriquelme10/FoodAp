@@ -4,7 +4,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import SignInScreen from "./src/screens/SigninScreen/SignInScreen";
-import RegisterScreen from "./src/screens/RegisterScreen/RegisterScreen";
 import Navigation from "./src/navigation/Navigation";
 import axios from "axios";
 

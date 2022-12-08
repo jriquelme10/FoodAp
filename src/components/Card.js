@@ -1,17 +1,23 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View ,Image} from "react-native";
 import { Button } from "react-native-paper";
 import CustomButton from "./CustomButton/CustomButton";
 
-function Card({ id, nombre, precio, descripcion, categoria }) {
+function Card({ id, nombre, precio, descripcion, categoria,onPress,image}) {
   return (
-    <View style={styles.cardView}>
+
+    <TouchableOpacity style={styles.cardView} onPress={onPress}>
+      <View>
+      <Image style={styles.thumb}
+        source={image}
+      />
       <Text style={styles.title}>{nombre}</Text>
       <Text style={styles.title}>Precio: ${precio}</Text>
       <Text style={styles.title}>{descripcion}</Text>
-      <CustomButton text={"Agregar"}/>
-    </View>
+      </View>
+    </TouchableOpacity>
+    
   );
 }
 
@@ -27,6 +33,12 @@ const styles = StyleSheet.create({
     shadowOffset: {
       width: 0,
       height: 2,
+    },
+    thumb: {
+      height: 260,
+      borderTopLeftRadius: 16,
+      borderTopRightRadius: 16,
+      width: '100%',
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

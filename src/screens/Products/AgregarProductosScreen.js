@@ -18,7 +18,7 @@ import { set } from "react-hook-form";
 import { Picker } from "@react-native-picker/picker";
 import SelectPicker from "react-native-form-select-picker"; // Import the package
 const options = ["Apple", "Banana", "Orange"];
-const URL = "http://192.168.0.5:8000/api/categorias";
+const URL = "http://192.168.0.114:8000/api/categorias";
 
 const AddProductsScreen = (props) => {
   const [listaCategory, setListaCategory] = useState("");
