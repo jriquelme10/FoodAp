@@ -7,12 +7,17 @@ import {
   StyleSheet,
   Alert,
   useWindowDimensions,
+  FlatList,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import Logo from "../../../../assets/images/logo.png";
 import { useNavigation } from "@react-navigation/native";
+import CardTables from "../../../components/CardTables";
+import axios from "axios";
+
+const URLTABLES = "http://192.168.1.189:8000/api/mesas";
 
 const AddTable = (props) => {
   const { height } = useWindowDimensions();
@@ -46,18 +51,77 @@ const AddTable = (props) => {
         }),
       });
       AlertInsert("La mesa ha sido ingresada");
+      getTables();
     } catch (error) {
       AlertInsert("La mesa no ha sido ingresada");
     }
     setNumber_table("");
   };
+
+  // cargar mesas
+  const [listaTables, setListaTables] = useState([]);
+
+  useEffect(() => {
+    getTables();
+  }, []);
+
+  const getTables = async () => {
+    try {
+      const { data } = await axios.get(URLTABLES);
+      const { table } = data;
+      setListaTables(table);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const renderItemTables = ({ item }) => (
+    <CardTables
+      number={item.number_table}
+      eliminar={eliminarTable}
+      item={item}
+    />
+  );
+
+  // fin cargar mesas
+
+  //eliminar mesa
+
+  const eliminarTable = (id) => {
+    Alert.alert("¿Quieres eliminar la mesa?", "", [
+      { text: "Cancelar" },
+      {
+        text: "Eliminar",
+        onPress: () => {
+          deleteTable(id);
+        },
+      },
+    ]);
+  };
+
+  const deleteTable = async (id) => {
+    const { data } = await axios.delete(
+      `http://192.168.1.189:8000/api/mesas/${id}`
+    );
+    console.log(data);
+    getTables();
+  };
+  //fin eliminar mesa
+
   return (
     <View style={styles.root}>
-      <Image
-        source={Logo}
-        style={[styles.logo, { height: height * 0.3 }]}
-        resizeMode="contain"
-      />
+      <View
+        style={{
+          height: 550,
+          width: 400,
+        }}
+      >
+        <FlatList
+          data={listaTables}
+          renderItem={renderItemTables}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
       <Text style={styles.title}> AGREGAR MESAS</Text>
       <TextInput
         style={styles.input}
