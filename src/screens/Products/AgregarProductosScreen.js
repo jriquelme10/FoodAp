@@ -34,7 +34,7 @@ const AddProductsScreen = (props) => {
   const [listaCategory, setListaCategory] = useState("");
   const [selected, setSelected] = useState("");
   const [existe, setExiste] = useState("no");
-  const [image, setImage] = useState("https://via.placeholder.com/200");
+  const [selectedImage, setSelectedImage] = useState(ImagePicker.ImageInfo);
 
   useEffect(() => {
     getCategorias();
@@ -166,19 +166,55 @@ const AddProductsScreen = (props) => {
 
   //imagen 2
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
       quality: 1,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    });
+    console.log(pickerResult);
+    if (pickerResult.cancelled === true) return;
+    setSelectedImage(pickerResult);
+  };
+
+  const uploadImage = async () => {
+    const uri =
+      Platform.OS === "android"
+        ? selectedImage.uri
+        : selectedImage.uri.replace("file://", "");
+    const filename = selectedImage.uri.split("/").pop();
+    const match = /\.(\w+)$/.exec(filename);
+    const ext = match?.[1];
+    const type = match ? `image/${match[1]}` : `image`;
+    const formData = new FormData();
+    console.log(filename);
+
+    formData.append("image", {
+      uri,
+      name: `image.${ext}`,
+      type,
     });
 
-    console.log(result);
+    try {
+      const { data } = await axios.post(
+        `${URLBASE}` + "/api/upload",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
-    if (!result.canceled) {
-      setImage(result.uri);
+      if (!data.isSuccess) {
+        alert("Error en agregar");
+        return;
+      }
+      alert("Producto Agregado");
+    } catch (err) {
+      console.error(err.response.data);
+      alert("Algo salio mal");
+    } finally {
+      setSelectedImage(undefined);
     }
   };
+
   //fin imagen 2
 
   return (
@@ -277,9 +313,9 @@ const AddProductsScreen = (props) => {
               title="Pick an image from camera roll"
               onPress={pickImage}
             />
-            {image && (
+            {selectedImage && (
               <Image
-                source={{ uri: image }}
+                source={{ uri: selectedImage.uri }}
                 style={{ width: 200, height: 200 }}
               />
             )}
@@ -306,7 +342,7 @@ const AddProductsScreen = (props) => {
 
             <CustomButton
               text={existe === "si" ? "Actualizar" : "Agregar"}
-              onPress={existe === "si" ? updateProduct : saveProduct}
+              onPress={existe === "si" ? updateProduct : uploadImage}
             />
           </View>
         </SafeAreaView>
