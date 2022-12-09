@@ -21,7 +21,7 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { set } from "react-hook-form";
-import SelectPicker from "react-native-form-select-picker"; // Import the package
+import SelectPicker from "react-native-form-select-picker";
 import equis from "../../../assets/images/equis.png";
 import CardProducto from "../../components/CardProducto";
 import * as ImagePicker from "expo-image-picker";
@@ -33,8 +33,10 @@ const URL = `${URLBASE}` + "/api/categorias";
 const AddProductsScreen = (props) => {
   const [listaCategory, setListaCategory] = useState("");
   const [selected, setSelected] = useState("");
-  const [existe, setExiste] = useState("no");
+  const [existe, setExiste] = useState("no"); // indica si el producto existe o si se esta creando uno nuevo
+  const [existeImagen, setExisteImagen] = useState("no");
   const [selectedImage, setSelectedImage] = useState(ImagePicker.ImageInfo);
+  const [selectedImageAux, setSelectedImageAux] = useState(); // se usa para guardar la imagen por si falla el editar producto
 
   useEffect(() => {
     getCategorias();
@@ -85,38 +87,38 @@ const AddProductsScreen = (props) => {
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
-  const saveProduct = async () => {
-    if ([nombre, descripcion, precio, selected].includes("")) {
-      Alert.alert("Error", "Todos los campos son obligatorios.", [
-        { text: "Ok" },
-      ]);
-      return;
-    }
+  // const saveProduct = async () => {
+  //   if ([nombre, descripcion, precio, selected].includes("")) {
+  //     Alert.alert("Error", "Todos los campos son obligatorios.", [
+  //       { text: "Ok" },
+  //     ]);
+  //     return;
+  //   }
 
-    try {
-      await fetch(`${URLBASE}` + "/api/plato", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nombre: nombre,
-          categoria: selected,
-          precio: precio,
-          descripcion: descripcion,
-        }),
-      });
-      AlertInsert("El producto ha sido ingresado");
-      getProductos();
-    } catch (error) {
-      AlertInsert("Eror de servidor, el producto no ha sido ingresado");
-    }
-    setNombre("");
-    setSelected("");
-    setPrecio("");
-    setDescripcion("");
-  };
+  //   try {
+  //     await fetch(`${URLBASE}` + "/api/plato", {
+  //       method: "POST",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         nombre: nombre,
+  //         categoria: selected,
+  //         precio: precio,
+  //         descripcion: descripcion,
+  //       }),
+  //     });
+  //     AlertInsert("El producto ha sido ingresado");
+  //     getProductos();
+  //   } catch (error) {
+  //     AlertInsert("Eror de servidor, el producto no ha sido ingresado");
+  //   }
+  //   setNombre("");
+  //   setSelected("");
+  //   setPrecio("");
+  //   setDescripcion("");
+  // };
 
   // cargar productos
   const ProductosURL = `${URLBASE}` + "/api/platos";
@@ -150,7 +152,9 @@ const AddProductsScreen = (props) => {
     setSelected(data.categoria);
     setPrecio(data.precio);
     setDescripcion(data.descripcion);
+    setSelectedImage(data.url);
     setExiste("si");
+    setExisteImagen("si");
     setModalVisible(true);
   };
   const updateProduct = async () => {
@@ -172,11 +176,25 @@ const AddProductsScreen = (props) => {
       quality: 1,
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
     });
+    console.log(pickerResult);
     if (pickerResult.cancelled === true) return;
+    setExisteImagen("no");
     setSelectedImage(pickerResult);
   };
 
   const uploadImage = async () => {
+    if ([nombre, descripcion, precio, selected].includes("")) {
+      Alert.alert("Error", "Todos los campos son obligatorios.", [
+        { text: "Ok" },
+      ]);
+      return;
+    }
+
+    if ([selectedImage].includes("")) {
+      Alert.alert("Error", "Debe seleccionar una imagen.", [{ text: "Ok" }]);
+      return;
+    }
+
     const uri =
       Platform.OS === "android"
         ? selectedImage.uri
@@ -199,7 +217,6 @@ const AddProductsScreen = (props) => {
       type,
     });
 
-    console.log(formData);
     try {
       const { data } = await axios.post(`${URLBASE}` + "/api/plato", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -209,12 +226,17 @@ const AddProductsScreen = (props) => {
         alert("Error en agregar");
         return;
       }
-      alert("Producto Agregado");
+      AlertInsert("El producto ha sido ingresado");
     } catch (err) {
       console.error(err.response.data);
-      alert("Algo salio mal");
+      AlertInsert("Eror de servidor, el producto no ha sido ingresado");
     } finally {
-      setSelectedImage(undefined);
+      setSelectedImage("");
+      setNombre("");
+      setSelected("");
+      setPrecio("");
+      setDescripcion("");
+      getProductos();
     }
   };
 
@@ -231,6 +253,7 @@ const AddProductsScreen = (props) => {
         title="Agregar Producto"
         onPress={() => {
           setExiste("no");
+          setExisteImagen("no");
           setModalVisible(true);
         }}
       />
@@ -258,6 +281,7 @@ const AddProductsScreen = (props) => {
                   setSelected("");
                   setPrecio("");
                   setDescripcion("");
+                  setSelectedImage("");
                 }}
               >
                 <Image
@@ -312,28 +336,21 @@ const AddProductsScreen = (props) => {
               onChangeText={setDescripcion}
             />
 
-            <Button
-              title="Pick an image from camera roll"
-              onPress={pickImage}
-            />
-            {selectedImage && (
+            <Button title="Selecciona una imagen" onPress={pickImage} />
+
+            {selectedImage && existeImagen === "no" && (
               <Image
                 source={{ uri: selectedImage.uri }}
                 style={{ width: 200, height: 200 }}
               />
             )}
 
-            {/* <Pressable
-              style={styles.btnImagen}
-              onPress={() => handleChoosePhoto()}
-            >
-              <Text style={styles.btnImagenTexto}>Agregar Imagen</Text>
-            </Pressable> */}
-
-            {/* <Image
-              style={{ alignSelf: "center", height: 200, width: 200 }}
-              source={{ uri: image }}
-            /> */}
+            {selectedImage && existeImagen === "si" && (
+              <Image
+                source={{ uri: selectedImage }}
+                style={{ width: 200, height: 200 }}
+              />
+            )}
 
             <TextInput
               style={styles.input}
