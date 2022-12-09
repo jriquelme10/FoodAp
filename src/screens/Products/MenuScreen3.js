@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import Card from "../../components/Card";
 import { FlatList } from "react-native-gesture-handler";
+import { URLBASE } from "../../../URL_API";
 
 const URL = `${URLBASE}` + "/api/platos";
 

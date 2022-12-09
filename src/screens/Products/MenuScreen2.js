@@ -15,6 +15,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { URLBASE } from "../../../URL_API";
 
 import Cart from "./Cart";
 import MenuScreen3 from "./MenuScreen3";

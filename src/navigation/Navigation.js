@@ -11,6 +11,7 @@ import ClientScreen from "../screens/ClientScreen/ClientScreen";
 //import MenuScreen from "../screens/Products/MenuScreen";
 import MenuScreen from "../screens/Products/MenuScreen2";
 import AgregarProductos from "../screens/Products/AgregarProductosScreen";
+import ImagePickerExample from "../screens/Products/servicios/ImagePickerExample";
 import AddCategoryScreen from "../screens/Products/servicios/AddCategoryScreen";
 import AddTable from "../screens/Products/servicios/AddTable";
 

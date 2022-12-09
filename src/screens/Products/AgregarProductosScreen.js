@@ -12,6 +12,8 @@ import {
   TouchableOpacity,
   SafeAreaView,
   FlatList,
+  Pressable,
+  Platform,
 } from "react-native";
 import Logo from "../../../assets/images/logo.png";
 import CustomInput from "../../components/CustomInput/CustomInput";
@@ -23,6 +25,8 @@ import SelectPicker from "react-native-form-select-picker"; // Import the packag
 import equis from "../../../assets/images/equis.png";
 import CardProducto from "../../components/CardProducto";
 import * as ImagePicker from "expo-image-picker";
+import { launchImageLibrary } from "react-native-image-picker";
+
 import { URLBASE } from "../../../URL_API";
 const URL = `${URLBASE}` + "/api/categorias";
 
@@ -30,6 +34,7 @@ const AddProductsScreen = (props) => {
   const [listaCategory, setListaCategory] = useState("");
   const [selected, setSelected] = useState("");
   const [existe, setExiste] = useState("no");
+  const [image, setImage] = useState("https://via.placeholder.com/200");
 
   useEffect(() => {
     getCategorias();
@@ -159,54 +164,23 @@ const AddProductsScreen = (props) => {
   };
   //fin editar producto
 
-  //imagen
-  function imagePickerChoose(props) {
-    const [image, setImage] = useState(null);
-    const [photoStatus, setPhotoStatus] = useState(
-      "No se ha seleccionado ninguna imagen"
-    );
-    useEffect(() => {
-      (async () => {
-        if (Platform.OS !== "web") {
-          const { status } =
-            await ImagePicker.requestMediaLibraryPermissionsAsync();
-          if (status !== "granted") {
-            alert("Lo sentimos, necesitamos permisos de la galeria");
-          }
-        }
-      })();
-    }, []);
+  //imagen 2
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
-    const pickImage = async () => {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: false,
-        aspect: [4, 3],
-        quality: 1,
-      });
+    console.log(result);
 
-      console.log(result);
+    if (!result.canceled) {
+      setImage(result.uri);
+    }
+  };
+  //fin imagen 2
 
-      if (!result.cancelled) {
-        setImage(result.uri);
-        setPhotoStatus("Imagen cargada correctamente");
-      }
-      props.parentCallback(result);
-    };
-    return (
-      <View style={{ alignItems: "center" }}>
-        <Button title="Seleccionar imagen" onPress={pickImage} />
-        <Text style={{ fontSize: 12, marginBottom: 20, color: "#8888" }}>
-          {photoStatus}
-        </Text>
-        {image && (
-          <Image source={{ uri: image }} style={{ width: 300, height: 300 }} />
-        )}
-      </View>
-    );
-  }
-
-  // fin imagen
   return (
     <View style={styles.container}>
       <FlatList
@@ -299,6 +273,29 @@ const AddProductsScreen = (props) => {
               onChangeText={setDescripcion}
             />
 
+            <Button
+              title="Pick an image from camera roll"
+              onPress={pickImage}
+            />
+            {image && (
+              <Image
+                source={{ uri: image }}
+                style={{ width: 200, height: 200 }}
+              />
+            )}
+
+            {/* <Pressable
+              style={styles.btnImagen}
+              onPress={() => handleChoosePhoto()}
+            >
+              <Text style={styles.btnImagenTexto}>Agregar Imagen</Text>
+            </Pressable> */}
+
+            {/* <Image
+              style={{ alignSelf: "center", height: 200, width: 200 }}
+              source={{ uri: image }}
+            /> */}
+
             <TextInput
               style={styles.input}
               placeholder="precio"
@@ -372,6 +369,14 @@ const styles = StyleSheet.create({
   contenido: {
     backgroundColor: "lightblue",
     flex: 1,
+  },
+  btnImagen: {
+    backgroundColor: "#Fafa",
+    marginHorizontal: 80,
+    marginTop: 20,
+    paddingVertical: 10,
+    borderRadius: 40,
+    marginBottom: 20,
   },
 });
 
