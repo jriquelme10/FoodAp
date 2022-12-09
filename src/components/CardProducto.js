@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, Image } from "react-native";
 import { Button } from "react-native-paper";
 import CustomButton from "./CustomButton/CustomButton";
 
@@ -9,6 +9,7 @@ function Card({
   precio,
   descripcion,
   categoria,
+  imagen,
   item,
   eliminar,
   editar,
@@ -25,6 +26,9 @@ function Card({
       </Button>
       <Text style={styles.title}>{nombre}</Text>
       <Text style={styles.price}>Precio: ${precio}</Text>
+      {imagen && (
+        <Image source={{ uri: imagen }} style={{ width: 200, height: 200 }} />
+      )}
       <Text style={styles.descripcion}>{descripcion}</Text>
       <Button
         mode="contained-tonal"

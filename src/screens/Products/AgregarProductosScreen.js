@@ -92,6 +92,7 @@ const AddProductsScreen = (props) => {
       ]);
       return;
     }
+
     try {
       await fetch(`${URLBASE}` + "/api/plato", {
         method: "POST",
@@ -132,6 +133,7 @@ const AddProductsScreen = (props) => {
       nombre={item.nombre}
       precio={item.precio}
       descripcion={item.descripcion}
+      imagen={item.url}
       item={item}
       eliminar={eliminarProducto}
       editar={editarProducto}
@@ -170,7 +172,6 @@ const AddProductsScreen = (props) => {
       quality: 1,
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
     });
-    console.log(pickerResult);
     if (pickerResult.cancelled === true) return;
     setSelectedImage(pickerResult);
   };
@@ -185,7 +186,12 @@ const AddProductsScreen = (props) => {
     const ext = match?.[1];
     const type = match ? `image/${match[1]}` : `image`;
     const formData = new FormData();
-    console.log(filename);
+    console.log(formData);
+
+    formData.append("nombre", nombre);
+    formData.append("categoria", selected);
+    formData.append("precio", precio);
+    formData.append("descripcion", descripcion);
 
     formData.append("image", {
       uri,
@@ -193,14 +199,11 @@ const AddProductsScreen = (props) => {
       type,
     });
 
+    console.log(formData);
     try {
-      const { data } = await axios.post(
-        `${URLBASE}` + "/api/upload",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      const { data } = await axios.post(`${URLBASE}` + "/api/plato", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       if (!data.isSuccess) {
         alert("Error en agregar");
