@@ -9,7 +9,8 @@ import SignInAdminScreen from "../screens/SigninScreen/SignInAdmin";
 import LogInScreen from "../screens/LogInScreen/LogInScreen";
 import ClientScreen from "../screens/ClientScreen/ClientScreen";
 //import MenuScreen from "../screens/Products/MenuScreen";
-import MenuScreen from "../screens/Products/MenuScreen2";
+//import MenuScreen from "../screens/Products/MenuScreen2";
+import NavigationClient from "../screens/ClientScreen/NavigationClient";
 import AgregarProductos from "../screens/Products/AgregarProductosScreen";
 import ImagePickerExample from "../screens/Products/servicios/ImagePickerExample";
 import AddCategoryScreen from "../screens/Products/servicios/AddCategoryScreen";
@@ -24,7 +25,7 @@ const Navigation = () => {
       <Stack.Screen name="Iniciar Sesión Admin" component={SignInAdminScreen} />
       <Stack.Screen name="LogInAdmin" component={LogInScreen} />
       <Stack.Screen name="ClientTable" component={ClientScreen} />
-      <Stack.Screen name="MenuOptions" component={MenuScreen} />
+      <Stack.Screen name="MenuOptions" component={NavigationClient} />
       <Stack.Screen name="AgregarProducto" component={AgregarProductos} />
       <Stack.Screen name="AgregarCategoria" component={AddCategoryScreen} />
       <Stack.Screen name="AgregarMesa" component={AddTable} />
