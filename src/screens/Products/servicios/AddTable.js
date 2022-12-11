@@ -40,6 +40,7 @@ const AddTable = (props) => {
       ]);
       return;
     }
+    console.log("number_table", number_table);
     try {
       await fetch(`${URLBASE}` + "/api/mesa", {
         method: "POST",

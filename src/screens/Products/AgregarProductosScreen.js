@@ -34,9 +34,8 @@ const AddProductsScreen = (props) => {
   const [listaCategory, setListaCategory] = useState("");
   const [selected, setSelected] = useState("");
   const [existe, setExiste] = useState("no"); // indica si el producto existe o si se esta creando uno nuevo
-  const [existeImagen, setExisteImagen] = useState("no");
+  const [existeImagen, setExisteImagen] = useState("no"); // indica si la imagen existe o se esta ingresando una nueva
   const [selectedImage, setSelectedImage] = useState(ImagePicker.ImageInfo);
-  const [selectedImageAux, setSelectedImageAux] = useState(); // se usa para guardar la imagen por si falla el editar producto
 
   useEffect(() => {
     getCategorias();
