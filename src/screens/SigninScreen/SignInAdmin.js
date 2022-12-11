@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Image,
   useWindowDimensions,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import React from "react";
 import Logo from "../../../assets/images/logo.png";
@@ -23,38 +23,25 @@ const HomeScreen = () => {
   const onTablePressed = () => {
     navigatioon.navigate("AgregarMesa");
   };
-  
-  
 
   const { height } = useWindowDimensions();
   return (
     <ScrollView>
-    <View style={styles.root}>
-      <Image
-        source={Logo}
-        style={[styles.logo, { height: height * 0.3 }]}
-        resizeMode="contain"
-      />
-      <Text style={styles.title}> ADMINISTRADOR </Text> 
+      <View style={styles.root}>
+        <Image
+          source={Logo}
+          style={[styles.logo, { height: height * 0.3 }]}
+          resizeMode="contain"
+        />
+        <Text style={styles.title}> ADMINISTRADOR </Text>
 
-  
-      <Text style={[styles.title,{marginTop:20}]}> Productos </Text>
-      <CustomButton text="Agregar Producto" onPress={onProductPressed} />
-      
+        <CustomButton text="PRODUCTOS" onPress={onProductPressed} />
 
-      <Text style={[styles.title,{marginTop:20}]}> Categorías </Text>
-     <CustomButton text="Agregar Categoria" onPress={onCategoryPressed} />
-    
+        <CustomButton text="CATEGORIAS" onPress={onCategoryPressed} />
 
-     <Text style={[styles.title,{marginTop:20}]}> Mesas </Text>
-      <CustomButton text="Agregar Mesa" onPress={onTablePressed} />
-      
-      
-      
-    </View>
-
+        <CustomButton text="MESAS" onPress={onTablePressed} />
+      </View>
     </ScrollView>
-    
   );
 };
 

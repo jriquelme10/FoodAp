@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 import { View, Text, Button, FlatList, StyleSheet } from "react-native";
-
+import CustomButton from "../../components/CustomButton/CustomButton";
 import { CartContext } from "./CartContext";
+import Ticker from "react-native-ticker";
 export function Cart({ navigation }) {
   const { items, getItemsCount, getTotalPrice } = useContext(CartContext);
   const [cantidad, setCantidad] = useState();
   const { removeItemFromCart } = useContext(CartContext);
   const { addItemToCart } = useContext(CartContext);
+  const { enviarPedido } = useContext(CartContext);
 
   function Totals() {
     let [total, setTotal] = useState(0);
@@ -19,16 +21,6 @@ export function Cart({ navigation }) {
         <Text style={styles.lineRight}>$ {total}</Text>
       </View>
     );
-  }
-
-  function quitarProducto(id) {
-    console.log("ID:" + id);
-    // addItemToCart(id);
-  }
-
-  function actualizar(cant) {
-    console.log(cant);
-    setCantidad(cant);
   }
 
   function renderItem({ item }) {
@@ -55,6 +47,7 @@ export function Cart({ navigation }) {
         keyExtractor={(item) => item.data.id.toString()}
         ListFooterComponent={Totals}
       />
+      <CustomButton text={"Realizar Pedido"} onPress={enviarPedido} />
     </View>
   );
 }
@@ -81,6 +74,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     lineHeight: 40,
+    color: "#333333",
+    textAlign: "right",
+  },
+  lineRightTicker: {
+    flex: 1,
+    fontSize: 50,
+    fontWeight: "bold",
+    lineHeight: 0,
     color: "#333333",
     textAlign: "right",
   },

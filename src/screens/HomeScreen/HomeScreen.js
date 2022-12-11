@@ -17,7 +17,7 @@ const HomeScreen = () => {
     navigatioon.navigate("Iniciar Sesión Admin");
   };
   const onClientPressed = () => {
-    navigatioon.navigate("ClientTable");
+    navigatioon.navigate("MenuOptions");
   };
 
   const { height } = useWindowDimensions();

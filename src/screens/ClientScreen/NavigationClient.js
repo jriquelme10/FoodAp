@@ -10,6 +10,7 @@ import { Cart } from "./Cart";
 import { CartIcon } from "../../components/CartIcon.js";
 import { CartProvider } from "./CartContext";
 import { CartContext } from "./CartContext";
+import ClientScreen from "./ClientScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ function NavigationClient() {
     <CartProvider>
       <NavigationContainer independent={true}>
         <Stack.Navigator>
+          <Stack.Screen name="ClientTable" component={ClientScreen} />
           <Stack.Screen
             name="Products"
             component={ProductsList}

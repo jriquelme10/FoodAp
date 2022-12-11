@@ -18,12 +18,12 @@ const URL = `${URLBASE}` + "/api/mesas";
 
 const ClientScreen = (props) => {
   const [listnumTable, setListNumTable] = useState("");
-  const [selected, setSelected] = useState("");
+  const [selectedTable, setSelectedTable] = useState("");
 
   const navigatioon = useNavigation();
   const { height } = useWindowDimensions();
   const onSendPressed = () => {
-    navigatioon.navigate("MenuOptions");
+    navigatioon.navigate("Products");
   };
 
   useEffect(() => {
@@ -53,9 +53,9 @@ const ClientScreen = (props) => {
           onValueChange={(value) => {
             // Do anything you want with the value.
             // For example, save in state.
-            setSelected(value);
+            setSelectedTable(value);
           }}
-          selected={selected}
+          selected={selectedTable}
         >
           {Object.values(listnumTable).map((val) => (
             <SelectPicker.Item
