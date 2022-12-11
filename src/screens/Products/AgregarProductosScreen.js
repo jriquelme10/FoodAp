@@ -77,7 +77,6 @@ const AddProductsScreen = (props) => {
 
   const deleteProducto = async (id) => {
     const { data } = await axios.delete(`${URLBASE}` + `/api/platos/${id}`);
-    console.log(data);
     getProductos();
   };
   //fin eliminar producto
@@ -146,7 +145,6 @@ const AddProductsScreen = (props) => {
   //editar producto
   const editarProducto = async (id) => {
     const { data } = await axios.get(`${URLBASE}` + `/api/plato/${id}`);
-    console.log(data);
     setId(data.id);
     setNombre(data.nombre);
     setSelected(data.categoria);
@@ -158,15 +156,89 @@ const AddProductsScreen = (props) => {
     setModalVisible(true);
   };
   const updateProduct = async () => {
-    const obj = { id, nombre, selected, precio, descripcion };
-    const { data } = await axios.put(`${URLBASE}` + `/api/platoUPDATE`, obj);
-    console.log(data);
-    getProductos();
-    setNombre("");
-    setSelected("");
-    setPrecio("");
-    setDescripcion("");
-    setModalVisible(false);
+    const formData = new FormData();
+
+    formData.append("nombre", nombre);
+    formData.append("categoria", selected);
+    formData.append("precio", precio);
+    formData.append("descripcion", descripcion);
+    formData.append("id", id);
+    try {
+      const { data } = await axios.post(
+        `${URLBASE}` + "/api/platoUpdate",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      if (!data.isSuccess) {
+        alert("Error en actualizar");
+        return;
+      }
+      AlertInsert("El producto ha sido Actualizado");
+    } catch (err) {
+      console.error(err.response.data);
+      AlertInsert("Error de servidor, el producto no ha sido atualizado");
+    } finally {
+      setSelectedImage("");
+      setNombre("");
+      setSelected("");
+      setPrecio("");
+      setDescripcion("");
+      getProductos();
+      setModalVisible(false);
+    }
+  };
+
+  const updateProductImage = async () => {
+    const uri =
+      Platform.OS === "android"
+        ? selectedImage.uri
+        : selectedImage.uri.replace("file://", "");
+    const filename = selectedImage.uri.split("/").pop();
+    const match = /\.(\w+)$/.exec(filename);
+    const ext = match?.[1];
+    const type = match ? `image/${match[1]}` : `image`;
+    const formData = new FormData();
+
+    formData.append("nombre", nombre);
+    formData.append("categoria", selected);
+    formData.append("precio", precio);
+    formData.append("descripcion", descripcion);
+    formData.append("id", id);
+
+    formData.append("image", {
+      uri,
+      name: `image.${ext}`,
+      type,
+    });
+    try {
+      const { data } = await axios.post(
+        `${URLBASE}` + "/api/platoUpdateImage",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      if (!data.isSuccess) {
+        alert("Error en actualizar");
+        return;
+      }
+      AlertInsert("El producto ha sido Actualizado");
+    } catch (err) {
+      console.error(err.response.data);
+      AlertInsert("Error de servidor, el producto no ha sido atualizado");
+    } finally {
+      setSelectedImage("");
+      setNombre("");
+      setSelected("");
+      setPrecio("");
+      setDescripcion("");
+      getProductos();
+      setModalVisible(false);
+    }
   };
   //fin editar producto
 
@@ -176,12 +248,12 @@ const AddProductsScreen = (props) => {
       quality: 1,
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
     });
-    console.log(pickerResult);
     if (pickerResult.cancelled === true) return;
     setExisteImagen("no");
     setSelectedImage(pickerResult);
   };
 
+  //agregar Producto
   const uploadImage = async () => {
     if ([nombre, descripcion, precio, selected].includes("")) {
       Alert.alert("Error", "Todos los campos son obligatorios.", [
@@ -204,7 +276,6 @@ const AddProductsScreen = (props) => {
     const ext = match?.[1];
     const type = match ? `image/${match[1]}` : `image`;
     const formData = new FormData();
-    console.log(formData);
 
     formData.append("nombre", nombre);
     formData.append("categoria", selected);
@@ -217,6 +288,7 @@ const AddProductsScreen = (props) => {
       type,
     });
 
+    console.log("data: " + formData);
     try {
       const { data } = await axios.post(`${URLBASE}` + "/api/plato", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -229,7 +301,7 @@ const AddProductsScreen = (props) => {
       AlertInsert("El producto ha sido ingresado");
     } catch (err) {
       console.error(err.response.data);
-      AlertInsert("Eror de servidor, el producto no ha sido ingresado");
+      AlertInsert("Error de servidor, el producto no ha sido ingresado");
     } finally {
       setSelectedImage("");
       setNombre("");
@@ -239,7 +311,7 @@ const AddProductsScreen = (props) => {
       getProductos();
     }
   };
-
+  //fin agregar producto
   //fin imagen 2
 
   return (
@@ -257,13 +329,7 @@ const AddProductsScreen = (props) => {
           setModalVisible(true);
         }}
       />
-      <Modal
-        animationType="slide"
-        onDismiss={() => console.log("Modal close")}
-        onShow={() => console.log("Modal open")}
-        transparent
-        visible={modalVisible}
-      >
+      <Modal animationType="slide" transparent visible={modalVisible}>
         <SafeAreaView style={styles.contenido}>
           <View style={styles.root}>
             <View
@@ -362,7 +428,13 @@ const AddProductsScreen = (props) => {
 
             <CustomButton
               text={existe === "si" ? "Actualizar" : "Agregar"}
-              onPress={existe === "si" ? updateProduct : uploadImage}
+              onPress={
+                existe === "si"
+                  ? existeImagen === "si"
+                    ? updateProduct
+                    : updateProductImage
+                  : uploadImage
+              }
             />
           </View>
         </SafeAreaView>
