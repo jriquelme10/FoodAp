@@ -51,7 +51,11 @@ export function Cart({ navigation }) {
         keyExtractor={(item) => item.data.id.toString()}
         ListFooterComponent={Totals}
       />
-      <CustomButton text={"Realizar Pedido"} onPress={enviarPedido} />
+      {items.length > 0 ? (
+        <CustomButton text={"Realizar Pedido"} onPress={enviarPedido} />
+      ) : (
+        <Text>Carrito vacio</Text>
+      )}
     </View>
   );
 }
