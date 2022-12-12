@@ -14,7 +14,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { URLBASE } from "../../../URL_API";
 const URLCATEGORIAS = `${URLBASE}` + "/api/categorias";
 
-export default function CategoriesList() {
+const CategoriesList = () => {
   const [listaCategorias, setListaCategorias] = useState([]);
 
   useEffect(() => {
@@ -40,4 +40,6 @@ export default function CategoriesList() {
       />
     </View>
   );
-}
+};
+
+export default CategoriesList;

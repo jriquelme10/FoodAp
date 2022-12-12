@@ -48,7 +48,7 @@ export function ProductsList({ navigation }) {
       <Button
         title="Categorias"
         onPress={() => {
-          navigation.navigate("Categories");
+          // navigation.navigate("Categories");
         }}
       />
       <FlatList
