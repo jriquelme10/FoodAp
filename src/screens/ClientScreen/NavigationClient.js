@@ -30,6 +30,15 @@ function NavigationClient() {
             })}
           />
           <Stack.Screen
+            name="Categories"
+            component={ProductsList}
+            options={({ navigation }) => ({
+              title: "Categories",
+              headerTitleStyle: styles.headerTitle,
+              headerRight: () => <CartIcon navigation={navigation} />,
+            })}
+          />
+          <Stack.Screen
             name="ProductDetails"
             component={ProductDetails}
             options={({ navigation }) => ({

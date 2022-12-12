@@ -3,30 +3,10 @@ import { View, Text, FlatList, StyleSheet, Image } from "react-native";
 import axios from "axios";
 import { URLBASE } from "../../../URL_API";
 import { Product } from "../../components/Product";
-//import { getProducts } from '../services/ProductsService.js';
+import { CustomButton } from "../../components/CustomButton";
 const URLPRODUCTOS = `${URLBASE}` + "/api/platos";
 export function ProductsList({ navigation }) {
   const [listProducts, setListProducts] = useState([]);
-
-  /*function renderProduct({item: product}) {
-    return (
-      <Product {...product} 
-      onPress={() => {
-        navigation.navigate('ProductDetails', {
-          productId: product.id,
-        });
-      }}
-      />
-    );
-  }
-  
-
-  /*const [products, setProducts] = useState([]);
-  
-  useEffect(() => {
-   setProducts(getProducts());
-  });
-  */
 
   const getProducts = async () => {
     const { data } = await axios.get(URLPRODUCTOS);
