@@ -23,6 +23,10 @@ export function Cart({ navigation }) {
     );
   }
 
+  const onSendPressed = () => {
+    navigatioon.navigate("Products");
+  };
+
   function renderItem({ item }) {
     return (
       <View style={styles.cartLine}>

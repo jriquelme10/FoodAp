@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Image,
+  Alert,
+  Button,
+} from "react-native";
 import axios from "axios";
 import { URLBASE } from "../../../URL_API";
 import { Product } from "../../components/Product";
@@ -37,6 +45,12 @@ export function ProductsList({ navigation }) {
 
   return (
     <View>
+      <Button
+        title="Categorias"
+        onPress={() => {
+          navigation.navigate("Categories");
+        }}
+      />
       <FlatList
         style={styles.productsList}
         contentContainerStyle={styles.productsListContainer}

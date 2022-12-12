@@ -4,10 +4,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { ProductsList } from "./ProductsList";
+import CategoriesList from "./CategoriesList";
 import { ProductDetails } from "./ProductDetails";
 import { Cart } from "./Cart";
 
-import { CartIcon } from "../../components/CartIcon.js";
+import { CartIcon } from "../../components/CartIcon";
 import { CartProvider } from "./CartContext";
 import { CartContext } from "./CartContext";
 import ClientScreen from "./ClientScreen";
@@ -31,7 +32,7 @@ function NavigationClient() {
           />
           <Stack.Screen
             name="Categories"
-            component={ProductsList}
+            component={CategoriesList}
             options={({ navigation }) => ({
               title: "Categories",
               headerTitleStyle: styles.headerTitle,
