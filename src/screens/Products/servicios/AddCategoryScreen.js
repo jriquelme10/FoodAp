@@ -66,9 +66,20 @@ const AddCategoryScreen = (propd) => {
   };
 
   const deleteCategory = async (id) => {
-    const { data } = await axios.delete(`${URLBASE}` + `/api/categorias/${id}`);
-    console.log(data);
-    getCategorias();
+    try {
+      const { data } = await axios.delete(
+        `${URLBASE}` + `/api/categorias/${id}`
+      );
+      if (!data.isSuccess) {
+        alert("Error en eliminar");
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Error en eliminar, probablemente la categoria esta en uso.");
+    } finally {
+      getCategorias();
+    }
   };
   //fin eliminar categoria
 
