@@ -92,6 +92,7 @@ export function CartProvider(props) {
         saveOrdenProduct(i, data.idOrden);
       }
       AlertInsert("El pedido fue enviado");
+      setItems([]);
     } catch (err) {
       console.error(err.response.data);
       AlertInsert("Error de servidor, la orden no ha sido ingresada");
