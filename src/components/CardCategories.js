@@ -5,7 +5,7 @@ import { Button } from "react-native-paper";
 import CustomButton from "./CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 
-function CardCategories({ name }) {
+function CardCategories({ name, category_id }) {
   const navigation = useNavigation();
   return (
     <View style={styles.cardView}>
@@ -14,6 +14,7 @@ function CardCategories({ name }) {
         text={"Ver productos"}
         onPress={() =>
           navigation.navigate("ProductsFilter", {
+            category_id: category_id,
             nameCategory: name,
           })
         }

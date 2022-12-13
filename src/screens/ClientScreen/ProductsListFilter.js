@@ -16,12 +16,11 @@ import { CustomButton } from "../../components/CustomButton";
 export function ProductsListFilter({ route, navigation }) {
   const [listProducts, setListProducts] = useState([]);
   const URLPRODUCTOS =
-    `${URLBASE}` + `/api/platosFilter/${route.params.nameCategory}}}`;
+    `${URLBASE}` + `/api/platosFilter/${route.params.category_id}}}`;
 
   const getProducts = async () => {
     const { data } = await axios.get(URLPRODUCTOS);
     const { productos } = data;
-    console.log(route.params.nameCategory);
     setListProducts(productos);
   };
 

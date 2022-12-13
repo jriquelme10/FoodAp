@@ -28,7 +28,7 @@ const CategoriesList = () => {
   };
 
   const renderItemCategories = ({ item }) => (
-    <CardCategories name={item.name} />
+    <CardCategories category_id={item.id} name={item.name} />
   );
 
   return (
