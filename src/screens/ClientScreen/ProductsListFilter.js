@@ -12,13 +12,16 @@ import axios from "axios";
 import { URLBASE } from "../../../URL_API";
 import { Product } from "../../components/Product";
 import { CustomButton } from "../../components/CustomButton";
-const URLPRODUCTOS = `${URLBASE}` + "/api/platos";
-export function ProductsList({ navigation }) {
+
+export function ProductsListFilter({ route, navigation }) {
   const [listProducts, setListProducts] = useState([]);
+  const URLPRODUCTOS =
+    `${URLBASE}` + `/api/platosFilter/${route.params.nameCategory}}}`;
 
   const getProducts = async () => {
     const { data } = await axios.get(URLPRODUCTOS);
     const { productos } = data;
+    console.log(route.params.nameCategory);
     setListProducts(productos);
   };
 
@@ -45,12 +48,7 @@ export function ProductsList({ navigation }) {
 
   return (
     <View>
-      <Button
-        title="Categorias"
-        onPress={() => {
-          navigation.navigate("Categories");
-        }}
-      />
+      <Button title={route.params.nameCategory} />
       <FlatList
         style={styles.productsList}
         contentContainerStyle={styles.productsListContainer}

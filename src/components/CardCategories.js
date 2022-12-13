@@ -3,12 +3,21 @@ import React from "react";
 import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import CustomButton from "./CustomButton/CustomButton";
+import { useNavigation } from "@react-navigation/native";
 
 function CardCategories({ name }) {
+  const navigation = useNavigation();
   return (
     <View style={styles.cardView}>
       <Text style={styles.title}>{name}</Text>
-      <CustomButton text={"Ver productos"} />
+      <CustomButton
+        text={"Ver productos"}
+        onPress={() =>
+          navigation.navigate("ProductsFilter", {
+            nameCategory: name,
+          })
+        }
+      />
     </View>
   );
 }

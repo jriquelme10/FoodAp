@@ -12,7 +12,6 @@ import LogInScreen from "../screens/LogInScreen/LogInScreen";
 //import MenuScreen from "../screens/Products/MenuScreen2";
 import NavigationClient from "../screens/ClientScreen/NavigationClient";
 import AgregarProductos from "../screens/Products/AgregarProductosScreen";
-import ImagePickerExample from "../screens/Products/servicios/ImagePickerExample";
 import AddCategoryScreen from "../screens/Products/servicios/AddCategoryScreen";
 import AddTable from "../screens/Products/servicios/AddTable";
 

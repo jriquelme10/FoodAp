@@ -12,6 +12,8 @@ import { CartIcon } from "../../components/CartIcon";
 import { CartProvider } from "./CartContext";
 import { CartContext } from "./CartContext";
 import ClientScreen from "./ClientScreen";
+import CardCategories from "./../../components/CardCategoria";
+import { ProductsListFilter } from "./ProductsListFilter";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +23,7 @@ function NavigationClient() {
       <NavigationContainer independent={true}>
         <Stack.Navigator>
           <Stack.Screen name="ClientTable" component={ClientScreen} />
+          <Stack.Screen name="CardCategories" component={CardCategories} />
           <Stack.Screen
             name="Products"
             component={ProductsList}
@@ -35,6 +38,15 @@ function NavigationClient() {
             component={CategoriesList}
             options={({ navigation }) => ({
               title: "Categories",
+              headerTitleStyle: styles.headerTitle,
+              headerRight: () => <CartIcon navigation={navigation} />,
+            })}
+          />
+          <Stack.Screen
+            name="ProductsFilter"
+            component={ProductsListFilter}
+            options={({ navigation }) => ({
+              title: "Productos",
               headerTitleStyle: styles.headerTitle,
               headerRight: () => <CartIcon navigation={navigation} />,
             })}

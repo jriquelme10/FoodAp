@@ -20,12 +20,10 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import { set } from "react-hook-form";
 import SelectPicker from "react-native-form-select-picker";
 import equis from "../../../assets/images/equis.png";
 import CardProducto from "../../components/CardProducto";
 import * as ImagePicker from "expo-image-picker";
-import { launchImageLibrary } from "react-native-image-picker";
 
 import { URLBASE } from "../../../URL_API";
 const URL = `${URLBASE}` + "/api/categorias";
@@ -52,7 +50,6 @@ const AddProductsScreen = (props) => {
   const onChangeHandler = (nombreValue) => {
     setNombre(nombreValue);
   };
-  const { categorias: categorias } = props;
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
   const { height } = useWindowDimensions();
@@ -85,39 +82,6 @@ const AddProductsScreen = (props) => {
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
-  // const saveProduct = async () => {
-  //   if ([nombre, descripcion, precio, selected].includes("")) {
-  //     Alert.alert("Error", "Todos los campos son obligatorios.", [
-  //       { text: "Ok" },
-  //     ]);
-  //     return;
-  //   }
-
-  //   try {
-  //     await fetch(`${URLBASE}` + "/api/plato", {
-  //       method: "POST",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         nombre: nombre,
-  //         categoria: selected,
-  //         precio: precio,
-  //         descripcion: descripcion,
-  //       }),
-  //     });
-  //     AlertInsert("El producto ha sido ingresado");
-  //     getProductos();
-  //   } catch (error) {
-  //     AlertInsert("Eror de servidor, el producto no ha sido ingresado");
-  //   }
-  //   setNombre("");
-  //   setSelected("");
-  //   setPrecio("");
-  //   setDescripcion("");
-  // };
-
   // cargar productos
   const ProductosURL = `${URLBASE}` + "/api/platos";
   const [listaProductos, setListaProductos] = useState([]);
@@ -146,7 +110,7 @@ const AddProductsScreen = (props) => {
     const { data } = await axios.get(`${URLBASE}` + `/api/plato/${id}`);
     setId(data.id);
     setNombre(data.nombre);
-    setSelected(data.categoria);
+    setSelected(data.category_id);
     setPrecio(data.precio);
     setDescripcion(data.descripcion);
     setSelectedImage(data.url);
@@ -158,7 +122,7 @@ const AddProductsScreen = (props) => {
     const formData = new FormData();
 
     formData.append("nombre", nombre);
-    formData.append("categoria", selected);
+    formData.append("category_id", selected);
     formData.append("precio", precio);
     formData.append("descripcion", descripcion);
     formData.append("id", id);
@@ -202,7 +166,7 @@ const AddProductsScreen = (props) => {
     const formData = new FormData();
 
     formData.append("nombre", nombre);
-    formData.append("categoria", selected);
+    formData.append("category_id", selected);
     formData.append("precio", precio);
     formData.append("descripcion", descripcion);
     formData.append("id", id);
@@ -277,7 +241,7 @@ const AddProductsScreen = (props) => {
     const formData = new FormData();
 
     formData.append("nombre", nombre);
-    formData.append("categoria", selected);
+    formData.append("category_id", selected);
     formData.append("precio", precio);
     formData.append("descripcion", descripcion);
 
@@ -388,7 +352,7 @@ const AddProductsScreen = (props) => {
                   <SelectPicker.Item
                     key={val.id}
                     label={val.name}
-                    value={val.name}
+                    value={val.id}
                   />
                 ))}
               </SelectPicker>

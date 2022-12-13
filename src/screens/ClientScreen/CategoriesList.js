@@ -9,7 +9,7 @@ import {
 import React, { useEffect, useState, Component } from "react";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import { CardCategories } from "../../components/CardCategories";
+import CardCategories from "../../components/CardCategories";
 import { FlatList } from "react-native-gesture-handler";
 import { URLBASE } from "../../../URL_API";
 const URLCATEGORIAS = `${URLBASE}` + "/api/categorias";
