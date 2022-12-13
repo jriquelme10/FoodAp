@@ -20,10 +20,11 @@ const ClientScreen = (props) => {
   const [listnumTable, setListNumTable] = useState("");
   const [selectedTable, setSelectedTable] = useState("");
 
-  const navigatioon = useNavigation();
+  const navigation = useNavigation();
   const { height } = useWindowDimensions();
   const onSendPressed = () => {
-    navigatioon.navigate("Products");
+    //navigation.navigate("Products");
+    navigation.navigate("WaitScreen");
   };
 
   useEffect(() => {

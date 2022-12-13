@@ -14,6 +14,8 @@ import { CartContext } from "./CartContext";
 import ClientScreen from "./ClientScreen";
 import CardCategories from "../../components/adminComponents/CardCategoria";
 import { ProductsListFilter } from "./ProductsListFilter";
+import CountDown from "./CountDown";
+import WaitScreen from "./WaitScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +26,16 @@ function NavigationClient() {
         <Stack.Navigator>
           <Stack.Screen name="ClientTable" component={ClientScreen} />
           <Stack.Screen name="CardCategories" component={CardCategories} />
+          <Stack.Screen name="WaitScreen" component={WaitScreen} />
+          <Stack.Screen
+            name="CountDown"
+            component={CountDown}
+            options={({ navigation }) => ({
+              title: "CountDown",
+              headerTitleStyle: styles.headerTitle,
+              headerRight: () => <CartIcon navigation={navigation} />,
+            })}
+          />
           <Stack.Screen
             name="Products"
             component={ProductsList}

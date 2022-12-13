@@ -1,12 +1,15 @@
 import React, { createContext, useState, useEffect } from "react";
 import { Alert } from "react-native";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 import { URLBASE } from "../../../URL_API";
+
 export const CartContext = createContext();
 
 export function CartProvider(props) {
   const [datos, setDatos] = useState([]);
   const [items, setItems] = useState([]);
+  const navigation = useNavigation();
   // const [idOrden, setIdOrden] = useState();
 
   const addItemToCart = async (id) => {
@@ -93,6 +96,7 @@ export function CartProvider(props) {
       }
       AlertInsert("El pedido fue enviado");
       setItems([]);
+      navigation.navigate("CountDown");
     } catch (err) {
       console.error(err.response.data);
       AlertInsert("Error de servidor, la orden no ha sido ingresada");
