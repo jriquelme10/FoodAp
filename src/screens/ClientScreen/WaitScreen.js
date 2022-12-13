@@ -13,7 +13,6 @@ import { URLBASE } from "../../../URL_API";
 
 const WaitScreen = () => {
   const [status, setStatus] = useState("");
-  const [minutes, setMinutes] = useState();
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -26,11 +25,9 @@ const WaitScreen = () => {
   const getOrden = async () => {
     try {
       const { data } = await axios.get(`${URLBASE}` + `/api/order/2`);
-      setMinutes(data.minutes);
       if (data.status == "PREPARANDO PEDIDO") {
-        console.log("minutos", minutes);
         navigation.navigate("CountDown", {
-          minutes: minutes,
+          minutes: data.minutes,
         });
       }
     } catch (error) {
