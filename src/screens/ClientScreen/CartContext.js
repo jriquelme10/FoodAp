@@ -9,6 +9,9 @@ export const CartContext = createContext();
 export function CartProvider(props) {
   const [datos, setDatos] = useState([]);
   const [items, setItems] = useState([]);
+  const [enviado, setEnviado] = useState(false);
+  const [idOrden, setIdOrden] = useState();
+  const [pedidoEnviado, setPedidoEnviado] = useState(false);
   const navigation = useNavigation();
   // const [idOrden, setIdOrden] = useState();
 
@@ -96,7 +99,8 @@ export function CartProvider(props) {
       }
       AlertInsert("El pedido fue enviado");
       setItems([]);
-      navigation.navigate("CountDown");
+      setPedidoEnviado(true);
+      setIdOrden(data.idOrden);
     } catch (err) {
       console.error(err.response.data);
       AlertInsert("Error de servidor, la orden no ha sido ingresada");
@@ -140,6 +144,9 @@ export function CartProvider(props) {
         removeItemFromCart,
         getTotalPrice,
         enviarPedido,
+        pedidoEnviado,
+        idOrden,
+        setPedidoEnviado,
       }}
     >
       {props.children}

@@ -10,7 +10,6 @@ import { Cart } from "./Cart";
 
 import { CartIcon } from "../../components/clientComponents/CartIcon";
 import { CartProvider } from "./CartContext";
-import { CartContext } from "./CartContext";
 import ClientScreen from "./ClientScreen";
 import CardCategories from "../../components/adminComponents/CardCategoria";
 import { ProductsListFilter } from "./ProductsListFilter";
@@ -27,15 +26,7 @@ function NavigationClient() {
           <Stack.Screen name="ClientTable" component={ClientScreen} />
           <Stack.Screen name="CardCategories" component={CardCategories} />
           <Stack.Screen name="WaitScreen" component={WaitScreen} />
-          <Stack.Screen
-            name="CountDown"
-            component={CountDown}
-            options={({ navigation }) => ({
-              title: "CountDown",
-              headerTitleStyle: styles.headerTitle,
-              headerRight: () => <CartIcon navigation={navigation} />,
-            })}
-          />
+          <Stack.Screen name="CountDown" component={CountDown} />
           <Stack.Screen
             name="Products"
             component={ProductsList}
@@ -82,6 +73,7 @@ function NavigationClient() {
             })}
           />
           <Stack.Screen name="CartContext" component={Cart} />
+          <Stack.Screen name="CartContext1" component={CartProvider} />
         </Stack.Navigator>
       </NavigationContainer>
     </CartProvider>

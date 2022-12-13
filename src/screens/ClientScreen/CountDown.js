@@ -25,13 +25,8 @@ const CountDown = ({ route }) => {
         <Timer
           isPlaying={isPlaying}
           key={key}
-          duration={route.params.minutes}
+          duration={route.params.minutes * 60}
         />
-        <Button
-          title="Pausar / Reanudar"
-          onPress={() => setIsPlaying((prev) => !prev)}
-        />
-        <Button title="Reiniciar" onPress={() => setKey((prev) => prev + 1)} />
       </View>
     </>
   );

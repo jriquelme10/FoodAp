@@ -23,8 +23,7 @@ const ClientScreen = (props) => {
   const navigation = useNavigation();
   const { height } = useWindowDimensions();
   const onSendPressed = () => {
-    //navigation.navigate("Products");
-    navigation.navigate("WaitScreen");
+    navigation.navigate("Products");
   };
 
   useEffect(() => {

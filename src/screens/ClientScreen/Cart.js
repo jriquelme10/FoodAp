@@ -9,6 +9,8 @@ export function Cart({ navigation }) {
   const { removeItemFromCart } = useContext(CartContext);
   const { addItemToCart } = useContext(CartContext);
   const { enviarPedido } = useContext(CartContext);
+  const { pedidoEnviado } = useContext(CartContext);
+  const { setPedidoEnviado } = useContext(CartContext);
 
   function Totals() {
     let [total, setTotal] = useState(0);
@@ -23,8 +25,13 @@ export function Cart({ navigation }) {
     );
   }
 
-  const onSendPressed = () => {
-    navigatioon.navigate("Products");
+  const verEspera = async () => {
+    navigation.navigate("WaitScreen");
+    setPedidoEnviado(false);
+  };
+
+  const onSendPressed = async () => {
+    enviarPedido();
   };
 
   function renderItem({ item }) {
@@ -52,9 +59,14 @@ export function Cart({ navigation }) {
         ListFooterComponent={Totals}
       />
       {items.length > 0 ? (
-        <CustomButton text={"Realizar Pedido"} onPress={enviarPedido} />
+        <CustomButton text={"Realizar Pedido"} onPress={onSendPressed} />
       ) : (
         <Text>Carrito vacio</Text>
+      )}
+      {pedidoEnviado == true ? (
+        <CustomButton text={"Ver Tiempo del Pedido"} onPress={verEspera} />
+      ) : (
+        <Text>No Hay pedido</Text>
       )}
     </View>
   );
