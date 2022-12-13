@@ -8,11 +8,11 @@ import CategoriesList from "./CategoriesList";
 import { ProductDetails } from "./ProductDetails";
 import { Cart } from "./Cart";
 
-import { CartIcon } from "../../components/CartIcon";
+import { CartIcon } from "../../components/clientComponents/CartIcon";
 import { CartProvider } from "./CartContext";
 import { CartContext } from "./CartContext";
 import ClientScreen from "./ClientScreen";
-import CardCategories from "./../../components/CardCategoria";
+import CardCategories from "../../components/adminComponents/CardCategoria";
 import { ProductsListFilter } from "./ProductsListFilter";
 
 const Stack = createNativeStackNavigator();

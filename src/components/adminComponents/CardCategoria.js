@@ -2,9 +2,9 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
-import CustomButton from "./CustomButton/CustomButton";
+import CustomButton from "../CustomButton/CustomButton";
 
-function CardTables({ number, eliminar, item }) {
+function CardCategories({ name, eliminar, item, editar }) {
   const { id } = item;
   return (
     <View style={styles.cardView}>
@@ -15,7 +15,15 @@ function CardTables({ number, eliminar, item }) {
       >
         Eliminar
       </Button>
-      <Text style={styles.title}>{number}</Text>
+
+      <Text style={styles.title}>{name}</Text>
+      <Button
+        mode="contained-tonal"
+        buttonColor="#3C7EB1"
+        onPress={() => editar(id)}
+      >
+        Renombrar
+      </Button>
     </View>
   );
 }
@@ -45,4 +53,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-export default CardTables;
+export default CardCategories;

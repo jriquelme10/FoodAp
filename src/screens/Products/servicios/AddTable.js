@@ -14,7 +14,7 @@ import CustomButton from "../../../components/CustomButton/CustomButton";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import Logo from "../../../../assets/images/logo.png";
 import { useNavigation } from "@react-navigation/native";
-import CardTables from "../../../components/CardTables";
+import CardTables from "../../../components/adminComponents/CardTables";
 import axios from "axios";
 import { URLBASE } from "../../../../URL_API";
 

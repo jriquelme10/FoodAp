@@ -1,10 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, Image } from "react-native";
 import { Button } from "react-native-paper";
-import CustomButton from "./CustomButton/CustomButton";
+import CustomButton from "../CustomButton/CustomButton";
 
-function CardCategories({ name, eliminar, item, editar }) {
+function Card({
+  nombre,
+  precio,
+  descripcion,
+  categoria,
+  imagen,
+  item,
+  eliminar,
+  editar,
+}) {
   const { id } = item;
   return (
     <View style={styles.cardView}>
@@ -15,14 +24,18 @@ function CardCategories({ name, eliminar, item, editar }) {
       >
         Eliminar
       </Button>
-
-      <Text style={styles.title}>{name}</Text>
+      <Text style={styles.title}>{nombre}</Text>
+      <Text style={styles.price}>Precio: ${precio}</Text>
+      {imagen && (
+        <Image source={{ uri: imagen }} style={{ width: 200, height: 200 }} />
+      )}
+      <Text style={styles.descripcion}>{descripcion}</Text>
       <Button
         mode="contained-tonal"
         buttonColor="#3C7EB1"
         onPress={() => editar(id)}
       >
-        Renombrar
+        Editar
       </Button>
     </View>
   );
@@ -33,7 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     marginVertical: 5,
-    marginHorizontal: 20,
+    marginHorizontal: 9,
     alignSelf: "stretch",
     padding: 35,
     shadowColor: "#000",
@@ -48,9 +61,19 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    textAlign: "center",
+    marginBottom: 10,
+    fontWeight: "bold",
+  },
+  price: {
+    fontSize: 18,
+    marginBottom: 10,
+    fontWeight: "bold",
+  },
+  descripcion: {
+    fontSize: 16,
     marginBottom: 10,
     fontWeight: "bold",
   },
 });
-export default CardCategories;
+
+export default Card;

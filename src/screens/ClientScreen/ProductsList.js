@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import { URLBASE } from "../../../URL_API";
-import { Product } from "../../components/Product";
+import { Product } from "../../components/clientComponents/Product";
 import { CustomButton } from "../../components/CustomButton";
 const URLPRODUCTOS = `${URLBASE}` + "/api/platos";
 export function ProductsList({ navigation }) {

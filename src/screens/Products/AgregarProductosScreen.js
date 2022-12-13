@@ -22,7 +22,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import SelectPicker from "react-native-form-select-picker";
 import equis from "../../../assets/images/equis.png";
-import CardProducto from "../../components/CardProducto";
+import CardProducto from "../../components/adminComponents/CardProducto";
 import * as ImagePicker from "expo-image-picker";
 
 import { URLBASE } from "../../../URL_API";
@@ -33,7 +33,7 @@ const AddProductsScreen = (props) => {
   const [selected, setSelected] = useState("");
   const [existe, setExiste] = useState("no"); // indica si el producto existe o si se esta creando uno nuevo
   const [existeImagen, setExisteImagen] = useState("no"); // indica si la imagen existe o se esta ingresando una nueva
-  const [selectedImage, setSelectedImage] = useState(ImagePicker.ImageInfo);
+  const [selectedImage, setSelectedImage] = useState("");
 
   useEffect(() => {
     getCategorias();

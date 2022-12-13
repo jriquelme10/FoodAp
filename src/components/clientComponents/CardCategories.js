@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
-import CustomButton from "./CustomButton/CustomButton";
+import CustomButton from "../CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 
 function CardCategories({ name, category_id }) {

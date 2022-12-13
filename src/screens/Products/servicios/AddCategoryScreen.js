@@ -17,7 +17,7 @@ import axios from "axios";
 import { set } from "react-hook-form";
 import { URLBASE } from "../../../../URL_API";
 
-import CardCategoria from "../../../components/CardCategoria";
+import CardCategoria from "../../../components/adminComponents/CardCategoria";
 
 const URLCATEGORIAS = `${URLBASE}` + "/api/categorias";
 

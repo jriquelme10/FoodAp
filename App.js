@@ -11,7 +11,7 @@ import { URLBASE } from "./URL_API";
 
 const URL = `${URLBASE}` + "/testBackEnd/public/plato";
 
-import Card from "./src/components/Card";
+import Card from "./src/components/adminComponents/Card";
 import { FlatList } from "react-native-gesture-handler";
 
 const App = () => {
