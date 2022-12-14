@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import { URLBASE } from "../../../URL_API";
 import { Product } from "../../components/clientComponents/Product";
-import { CustomButton } from "../../components/CustomButton";
+import CustomButton from "../../components/CustomButton";
 const URLPRODUCTOS = `${URLBASE}` + "/api/platos";
 export function ProductsList({ navigation }) {
   const [listProducts, setListProducts] = useState([]);
@@ -44,9 +44,9 @@ export function ProductsList({ navigation }) {
   );
 
   return (
-    <View>
-      <Button
-        title="Categorias"
+    <View style={{marginTop:"10%"}}>
+      <CustomButton
+        text="Categorias"
         onPress={() => {
           navigation.navigate("Categories");
         }}
@@ -64,6 +64,7 @@ export function ProductsList({ navigation }) {
 
 const styles = StyleSheet.create({
   productsList: {
+    marginTop:"3%",
     backgroundColor: "#eeeeee",
   },
   productsListContainer: {

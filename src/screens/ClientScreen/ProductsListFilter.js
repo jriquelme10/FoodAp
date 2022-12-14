@@ -47,7 +47,7 @@ export function ProductsListFilter({ route, navigation }) {
 
   return (
     <View>
-      <Button title={route.params.nameCategory} />
+      <Text style={[styles.name,{textAlign:"center"},{marginTop:"4%"}]}>{route.params.nameCategory}</Text>
       <FlatList
         style={styles.productsList}
         contentContainerStyle={styles.productsListContainer}
@@ -67,5 +67,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#eeeeee",
     paddingVertical: 8,
     marginHorizontal: 8,
+  },
+  name: {
+    fontSize: 22,
+    fontWeight: 'bold',
   },
 });

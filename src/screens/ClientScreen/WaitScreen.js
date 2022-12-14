@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   useWindowDimensions,
+  ActivityIndicator
 } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
@@ -41,9 +42,17 @@ const WaitScreen = () => {
 
   return (
     <View>
-      <Text>Esperandooooooooooooooooooooooooozzzzzz</Text>
+      <Text style={[styles.title,{textAlign:"center"},{marginTop:"10%"}]}>Esperando confirmación del pedido...</Text>
+      <ActivityIndicator style={{marginTop:"10%"}} size="large" color="#00ff00"/>
     </View>
   );
 };
 
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 20,
+    marginBottom: 10,
+    fontWeight: "bold",
+  },
+});
 export default WaitScreen;

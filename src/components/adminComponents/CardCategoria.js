@@ -7,23 +7,29 @@ import CustomButton from "../CustomButton/CustomButton";
 function CardCategories({ name, eliminar, item, editar }) {
   const { id } = item;
   return (
-    <View style={styles.cardView}>
-      <Button
-        mode="contained"
-        buttonColor="#CF443B"
-        onPress={() => eliminar(id)}
-      >
-        Eliminar
-      </Button>
+    <View>
+     
 
-      <Text style={styles.title}>{name}</Text>
-      <Button
+      <View style={styles.card}>
+      
+      <View style={styles.infoContainer}>
+        <Text style={[styles.name,{textAlign:'center'}]}>{name}</Text>        
+      </View>
+
+      <CustomButton
         mode="contained-tonal"
         buttonColor="#3C7EB1"
         onPress={() => editar(id)}
-      >
-        Renombrar
-      </Button>
+        text="Editar"
+      />
+      <CustomButton
+        mode="contained-tonal"
+        buttonColor="#3C7EB1"
+        onPress={() => eliminar(id)}
+        text="Eliminar"
+      />
+    </View>
+
     </View>
   );
 }
@@ -51,6 +57,37 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 10,
     fontWeight: "bold",
+  },
+  card: {
+    backgroundColor: 'white',
+    borderRadius: 16,
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowColor: 'black',
+    shadowOffset: {
+      height: 0,
+      width: 0,
+    },
+    elevation: 1,
+    marginVertical: 20,
+  },
+  thumb: {
+    height: 260,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    width: '100%',
+  },
+  infoContainer: {
+    padding: 16,
+  },
+  name: {
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+  price: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 8,
   },
 });
 export default CardCategories;

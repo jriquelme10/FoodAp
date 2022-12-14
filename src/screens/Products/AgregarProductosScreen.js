@@ -284,16 +284,19 @@ const AddProductsScreen = (props) => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
       />
-      <Button
-        title="Agregar Producto"
+      <View style={{marginBottom:"15%"}}>
+        <CustomButton
+        text="Agregar Producto"
         onPress={() => {
           setExiste("no");
           setExisteImagen("no");
           setModalVisible(true);
         }}
-      />
-      <Modal animationType="slide" transparent visible={modalVisible}>
-        <SafeAreaView style={styles.contenido}>
+        />
+      </View>
+      
+      <Modal animationType="slide" transparent={false} visible={modalVisible}>
+        <SafeAreaView style={[styles.container,{marginTop:"40%"}]}>
           <View style={styles.root}>
             <View
               style={{
@@ -313,15 +316,19 @@ const AddProductsScreen = (props) => {
                   setSelectedImage("");
                 }}
               >
-                <Image
+                <View style={{marginTop:"-100%"}}>
+
+                  <Image
                   source={equis}
                   style={{
-                    height: 40,
-                    width: 50,
+                    height: 30,
+                    width: 30,
                     paddingRight: 30,
                     marginRight: 30,
                   }}
                 />
+                </View>
+                
               </TouchableOpacity>
             </View>
             {existe === "si" ? (
@@ -365,7 +372,7 @@ const AddProductsScreen = (props) => {
               onChangeText={setDescripcion}
             />
 
-            <Button title="Selecciona una imagen" onPress={pickImage} />
+            <CustomButton text="Selecciona una imagen" onPress={pickImage} />
 
             {selectedImage && existeImagen === "no" && (
               <Image
@@ -458,7 +465,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   contenido: {
-    backgroundColor: "lightblue",
+    backgroundColor: "white",
     flex: 1,
   },
   btnImagen: {

@@ -13,11 +13,12 @@ const URL = `${URLBASE}` + "/testBackEnd/public/plato";
 
 import Card from "./src/components/adminComponents/Card";
 import { FlatList } from "react-native-gesture-handler";
+import NavigationClient from "./src/screens/ClientScreen/NavigationClient";
 
 const App = () => {
   return (
     <NavigationContainer styles={styles.root}>
-      <Navigation />
+      <NavigationClient/>
     </NavigationContainer>
   );
 };

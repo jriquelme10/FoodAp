@@ -8,14 +8,13 @@ function CardTables({ number, eliminar, item }) {
   const { id } = item;
   return (
     <View style={styles.cardView}>
-      <Button
-        mode="contained"
-        buttonColor="#CF443B"
-        onPress={() => eliminar(id)}
-      >
-        Eliminar
-      </Button>
-      <Text style={styles.title}>{number}</Text>
+      <Text style={styles.title}> Mesa: {number}</Text>
+       <CustomButton
+          mode="contained"
+          buttonColor="#CF443B"
+          onPress={() => eliminar(id)}
+          text="Eliminar"
+        />
     </View>
   );
 }

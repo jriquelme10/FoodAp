@@ -21,7 +21,7 @@ const CountDown = ({ route }) => {
     <>
       <StatusBar style="auto" />
       <View style={styles.container}>
-        <Header title="Tiempo de espera" />
+        <Text style={[styles.title,{marginBottom:"10%"}]}>TIEMPO DE ESPERA</Text>
         <Timer
           isPlaying={isPlaying}
           key={key}
@@ -35,10 +35,15 @@ const CountDown = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 100,
-    backgroundColor: "lightyellow",
+    paddingBottom: 200,
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
+  },
+  title: {
+    fontSize: 20,
+    marginBottom: 10,
+    fontWeight: "bold",
   },
 });
 

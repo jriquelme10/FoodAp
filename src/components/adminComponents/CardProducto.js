@@ -16,63 +16,73 @@ function Card({
 }) {
   const { id } = item;
   return (
-    <View style={styles.cardView}>
-      <Button
-        mode="contained"
-        buttonColor="#CF443B"
-        onPress={() => eliminar(id)}
-      >
-        Eliminar
-      </Button>
-      <Text style={styles.title}>{nombre}</Text>
-      <Text style={styles.price}>Precio: ${precio}</Text>
-      {imagen && (
-        <Image source={{ uri: imagen }} style={{ width: 200, height: 200 }} />
-      )}
-      <Text style={styles.descripcion}>{descripcion}</Text>
-      <Button
+    <View style={styles.card}>
+
+    
+      <Image
+        style={styles.thumb}
+        source={{uri:imagen}}
+      />
+      <View style={styles.infoContainer}>
+        <Text style={styles.name}>{nombre}</Text>
+        <Text style={styles.price}>$ {precio}</Text>
+        <Text style={styles.description}>{descripcion}</Text>
+      </View>
+        
+
+      <CustomButton
         mode="contained-tonal"
         buttonColor="#3C7EB1"
         onPress={() => editar(id)}
-      >
-        Editar
-      </Button>
+        text="Editar"
+      />
+      <CustomButton
+        mode="contained-tonal"
+        buttonColor="#3C7EB1"
+        onPress={() => eliminar(id)}
+        text="Eliminar"
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  cardView: {
-    backgroundColor: "white",
-    borderRadius: 20,
-    marginVertical: 5,
-    marginHorizontal: 9,
-    alignSelf: "stretch",
-    padding: 35,
-    shadowColor: "#000",
+  card: {
+    backgroundColor: 'white',
+    borderRadius: 16,
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowColor: 'black',
     shadowOffset: {
+      height: 0,
       width: 0,
-      height: 2,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 3,
-    alignSelf: "stretch",
+    elevation: 1,
+    marginVertical: 20,
   },
-  title: {
-    fontSize: 20,
-    marginBottom: 10,
-    fontWeight: "bold",
+  thumb: {
+    height: 260,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    width: '100%',
+  },
+  infoContainer: {
+    padding: 16,
+  },
+  name: {
+    fontSize: 22,
+    fontWeight: 'bold',
   },
   price: {
-    fontSize: 18,
-    marginBottom: 10,
-    fontWeight: "bold",
-  },
-  descripcion: {
+    marginTop:8,
     fontSize: 16,
-    marginBottom: 10,
-    fontWeight: "bold",
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+  description: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom:10,
   },
 });
 
