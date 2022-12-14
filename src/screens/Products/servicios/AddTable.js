@@ -17,7 +17,6 @@ import { useNavigation } from "@react-navigation/native";
 import CardTables from "../../../components/adminComponents/CardTables";
 import axios from "axios";
 import { URLBASE } from "../../../../URL_API";
-
 const URLTABLES = `${URLBASE}` + "/api/mesas";
 
 const AddTable = (props) => {
@@ -56,7 +55,7 @@ const AddTable = (props) => {
     } catch (error) {
       AlertInsert("La mesa no ha sido ingresada");
     }
-    setNumber_table("");
+    setNumber_table();
   };
 
   // cargar mesas

@@ -4,25 +4,31 @@ import {
   StyleSheet,
   Image,
   useWindowDimensions,
+  Alert,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import Logo from "../../../assets/images/logo.png";
 import SelectPicker from "react-native-form-select-picker";
 import axios from "axios"; // Import the package
 import { URLBASE } from "../../../URL_API";
-
+import { CartContext } from "./CartContext";
 import { useNavigation } from "@react-navigation/native";
 const URL = `${URLBASE}` + "/api/mesas";
 
 const ClientScreen = (props) => {
   const [listnumTable, setListNumTable] = useState("");
   const [selectedTable, setSelectedTable] = useState("");
-
+  const context = useContext(CartContext);
   const navigation = useNavigation();
   const { height } = useWindowDimensions();
+
   const onSendPressed = () => {
+    if ([selectedTable].includes("")) {
+      Alert.alert("Error", "No ha seleccionado una mesa.", [{ text: "Ok" }]);
+      return;
+    }
     navigation.navigate("Products");
   };
 

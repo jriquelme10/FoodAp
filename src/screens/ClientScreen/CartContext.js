@@ -13,6 +13,7 @@ export function CartProvider(props) {
   const [idOrden, setIdOrden] = useState();
   const [pedidoEnviado, setPedidoEnviado] = useState(false);
   const navigation = useNavigation();
+  const [number_table, setNumber_table] = useState(1);
   // const [idOrden, setIdOrden] = useState();
 
   const addItemToCart = async (id) => {
@@ -147,6 +148,8 @@ export function CartProvider(props) {
         pedidoEnviado,
         idOrden,
         setPedidoEnviado,
+        number_table,
+        setNumber_table,
       }}
     >
       {props.children}

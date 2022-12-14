@@ -284,19 +284,19 @@ const AddProductsScreen = (props) => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
       />
-      <View style={{marginBottom:"15%"}}>
+      <View style={{ marginBottom: "15%" }}>
         <CustomButton
-        text="Agregar Producto"
-        onPress={() => {
-          setExiste("no");
-          setExisteImagen("no");
-          setModalVisible(true);
-        }}
+          text="Agregar Producto"
+          onPress={() => {
+            setExiste("no");
+            setExisteImagen("no");
+            setModalVisible(true);
+          }}
         />
       </View>
-      
+
       <Modal animationType="slide" transparent={false} visible={modalVisible}>
-        <SafeAreaView style={[styles.container,{marginTop:"40%"}]}>
+        <SafeAreaView style={[styles.container, { marginTop: "40%" }]}>
           <View style={styles.root}>
             <View
               style={{
@@ -316,19 +316,17 @@ const AddProductsScreen = (props) => {
                   setSelectedImage("");
                 }}
               >
-                <View style={{marginTop:"-100%"}}>
-
+                <View style={{ marginTop: "-100%" }}>
                   <Image
-                  source={equis}
-                  style={{
-                    height: 30,
-                    width: 30,
-                    paddingRight: 30,
-                    marginRight: 30,
-                  }}
-                />
+                    source={equis}
+                    style={{
+                      height: 30,
+                      width: 30,
+                      paddingRight: 30,
+                      marginRight: 30,
+                    }}
+                  />
                 </View>
-                
               </TouchableOpacity>
             </View>
             {existe === "si" ? (
