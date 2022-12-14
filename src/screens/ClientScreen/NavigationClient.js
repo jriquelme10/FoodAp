@@ -27,16 +27,15 @@ const Stack = createNativeStackNavigator();
 function NavigationClient() {
   return (
     <NavigationContainer independent={true}>
-    <CartProvider>
-      
-        <Stack.Navigator screenOptions={{headerShown:true}}>
-        <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Iniciar Sesión Admin" component={SignInAdminScreen} />
-      <Stack.Screen name="LogInAdmin" component={LogInScreen} />
-      <Stack.Screen name="MenuOptions" component={ClientScreen} />
-      <Stack.Screen name="AgregarProducto" component={AgregarProductos} />
-      <Stack.Screen name="AgregarCategoria" component={AddCategoryScreen} />
-      <Stack.Screen name="AgregarMesa" component={AddTable} />
+      <CartProvider>
+        <Stack.Navigator screenOptions={{ headerShown: true }}>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Administrador" component={SignInAdminScreen} />
+          <Stack.Screen name="LogInAdmin" component={LogInScreen} />
+          <Stack.Screen name="MenuOptions" component={ClientScreen} />
+          <Stack.Screen name="AgregarProducto" component={AgregarProductos} />
+          <Stack.Screen name="AgregarCategoria" component={AddCategoryScreen} />
+          <Stack.Screen name="AgregarMesa" component={AddTable} />
           <Stack.Screen name="ClientTable" component={ClientScreen} />
           <Stack.Screen name="CardCategories" component={CardCategories} />
           <Stack.Screen name="WaitScreen" component={WaitScreen} />
@@ -89,8 +88,7 @@ function NavigationClient() {
           <Stack.Screen name="CartContext" component={Cart} />
           <Stack.Screen name="CartContext1" component={CartProvider} />
         </Stack.Navigator>
-      
-    </CartProvider>
+      </CartProvider>
     </NavigationContainer>
   );
 }

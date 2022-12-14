@@ -111,7 +111,7 @@ const AddTable = (props) => {
     <View style={styles.root}>
       <View
         style={{
-          height: 550,
+          height: 400,
           width: 400,
         }}
       >
@@ -126,7 +126,7 @@ const AddTable = (props) => {
         style={styles.input}
         placeholder="Numero de mesa"
         value={number_table}
-        keyboardType="phone-pad"
+        keyboardType="number-pad"
         onChangeText={setNumber_table}
       />
 

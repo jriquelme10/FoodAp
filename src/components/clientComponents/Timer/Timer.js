@@ -25,12 +25,18 @@ const Timer = (props, key) => (
     })}
     //  onUpdate={() => console.log("tick")}
   >
-    {({ remainingTime, color }) => (
+    {({ remainingTime, color }) =>
       /**<Text style={{ color, fontSize: 30 }}>{remainingTime}</Text>)}*/
-      <Ticker textStyle={styles.number} duration={500}>
-        {remainingTime}
-      </Ticker>
-    )}
+      remainingTime % 60 > 9 ? (
+        <Ticker textStyle={styles.number} duration={500}>
+          {Math.floor(remainingTime / 60)}:{remainingTime % 60}
+        </Ticker>
+      ) : (
+        <Ticker textStyle={styles.number} duration={500}>
+          {Math.floor(remainingTime / 60)}:0{remainingTime % 60}
+        </Ticker>
+      )
+    }
   </CountdownCircleTimer>
 );
 

@@ -146,7 +146,7 @@ const AddCategoryScreen = (propd) => {
     <View style={styles.root}>
       <View
         style={{
-          height: 550,
+          height: 470,
           width: 400,
         }}
       >

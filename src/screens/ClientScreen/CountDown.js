@@ -13,7 +13,7 @@ import Header from "../../components/clientComponents/Timer/Header";
 import Timer from "../../components/clientComponents/Timer/Timer";
 
 const CountDown = ({ route }) => {
-  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [isPlaying, setIsPlaying] = React.useState(true);
   const [key, setKey] = React.useState(0);
   const [text, onChangeText] = React.useState("Useless Text");
 
@@ -21,7 +21,9 @@ const CountDown = ({ route }) => {
     <>
       <StatusBar style="auto" />
       <View style={styles.container}>
-        <Text style={[styles.title,{marginBottom:"10%"}]}>TIEMPO DE ESPERA</Text>
+        <Text style={[styles.title, { marginBottom: "10%" }]}>
+          TIEMPO DE ESPERA
+        </Text>
         <Timer
           isPlaying={isPlaying}
           key={key}
